@@ -2,212 +2,476 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Store - Online Shopping</title>
+    <title>Punam Market - Online Shopping</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
-    <header>
 
-        <div class="logo">
-            🛒 Punam Market
-        </div>
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
 
-        <div class="search-box">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search products..."
-            >
-        </div>
+<header>
 
-        <button class="cart-button" onclick="openCart()">
-            🛒 Cart
-            <span id="cartCount">0</span>
-        </button>
-
-    </header>
+    <div class="logo">
+        🛒 Punam Market
+    </div>
 
 
-    <!-- NAVBAR -->
-    <nav>
+    <div class="search-box">
 
-        <button onclick="filterProducts('all')">
-            All
-        </button>
-
-        <button onclick="filterProducts('electronics')">
-            Electronics
-        </button>
-
-        <button onclick="filterProducts('clothing')">
-            Clothing
-        </button>
-
-        <button onclick="filterProducts('accessories')">
-            Accessories
-        </button>
-
-    </nav>
-
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-
-        <div>
-            <h1>Welcome to MyStore</h1>
-
-            <p>
-                Quality Products at Best Prices
-            </p>
-
-            <button onclick="scrollToProducts()">
-                Shop Now
-            </button>
-        </div>
-
-    </section>
-
-
-    <!-- PRODUCTS -->
-    <section class="products-section" id="products">
-
-        <h2>Our Products</h2>
-
-        <div id="productContainer" class="product-container">
-
-        </div>
-
-    </section>
-
-
-    <!-- CART SIDEBAR -->
-    <div id="cartSidebar" class="cart-sidebar">
-
-        <div class="cart-header">
-
-            <h2>Your Cart</h2>
-
-            <button onclick="closeCart()">
-                ✕
-            </button>
-
-        </div>
-
-
-        <div id="cartItems">
-
-        </div>
-
-
-        <div class="cart-total">
-
-            <h3>
-                Total:
-                ₹<span id="cartTotal">0</span>
-            </h3>
-
-            <button
-                class="checkout-btn"
-                onclick="openCheckout()"
-            >
-                Checkout
-            </button>
-
-        </div>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search products..."
+        >
 
     </div>
 
 
-    <!-- CHECKOUT -->
-    <div id="checkoutModal" class="modal">
+    <button
+        class="cart-button"
+        onclick="openCart()"
+    >
 
-        <div class="checkout-box">
+        🛒 Cart
 
-            <button
-                class="close-modal"
-                onclick="closeCheckout()"
-            >
-                ✕
-            </button>
+        <span id="cartCount">
+            0
+        </span>
 
-            <h2>Customer Details</h2>
+    </button>
 
-            <input
-                type="text"
-                id="customerName"
-                placeholder="Your Name"
-            >
+</header>
 
-            <input
-                type="tel"
-                id="customerPhone"
-                placeholder="Phone Number"
-            >
 
-            <textarea
-                id="customerAddress"
-                placeholder="Delivery Address"
-            ></textarea>
 
-            <button
-                class="order-btn"
-                onclick="placeOrder()"
-            >
-                Place Order on WhatsApp
-            </button>
+<!-- ========================= -->
+<!-- NAVBAR -->
+<!-- ========================= -->
 
-        </div>
+<nav>
+
+    <button onclick="filterProducts('all')">
+        All
+    </button>
+
+    <button onclick="filterProducts('electronics')">
+        Electronics
+    </button>
+
+    <button onclick="filterProducts('clothing')">
+        Clothing
+    </button>
+
+    <button onclick="filterProducts('accessories')">
+        Accessories
+    </button>
+
+</nav>
+
+
+
+<!-- ========================= -->
+<!-- LOGIN / SIGN UP -->
+<!-- ========================= -->
+
+<section class="auth-section">
+
+    <h2>
+        👤 My Account
+    </h2>
+
+
+    <div class="auth-box">
+
+
+        <!-- SIGN UP -->
+
+        <h3>
+            Create Account
+        </h3>
+
+
+        <input
+            type="email"
+            id="signupEmail"
+            placeholder="Enter Email"
+        >
+
+
+        <input
+            type="password"
+            id="signupPassword"
+            placeholder="Create Password"
+        >
+
+
+        <button onclick="signup()">
+
+            Sign Up
+
+        </button>
+
+
+
+        <hr>
+
+
+
+        <!-- LOGIN -->
+
+        <h3>
+            Login
+        </h3>
+
+
+        <input
+            type="email"
+            id="loginEmail"
+            placeholder="Enter Email"
+        >
+
+
+        <input
+            type="password"
+            id="loginPassword"
+            placeholder="Enter Password"
+        >
+
+
+        <button onclick="login()">
+
+            Login
+
+        </button>
+
+
+
+        <!-- GOOGLE LOGIN -->
+
+        <button
+            class="google-button"
+            onclick="googleLogin()"
+        >
+
+            🔵 Continue with Google
+
+        </button>
+
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+
+            🚪 Logout
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- HERO SECTION -->
+<!-- ========================= -->
+
+<section class="hero">
+
+    <div>
+
+        <h1>
+            Welcome to Punam Market
+        </h1>
+
+
+        <p>
+            Quality Products at Best Prices
+        </p>
+
+
+        <button
+            onclick="scrollToProducts()"
+        >
+
+            Shop Now
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- PRODUCTS -->
+<!-- ========================= -->
+
+<section
+    class="products-section"
+    id="products"
+>
+
+    <h2>
+        Our Products
+    </h2>
+
+
+    <div
+        id="productContainer"
+        class="product-container"
+    >
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- CART SIDEBAR -->
+<!-- ========================= -->
+
+<div
+    id="cartSidebar"
+    class="cart-sidebar"
+>
+
+
+    <div class="cart-header">
+
+        <h2>
+            Your Cart
+        </h2>
+
+
+        <button
+            onclick="closeCart()"
+        >
+
+            ✕
+
+        </button>
 
     </div>
 
 
-    <!-- FOOTER -->
-    <footer>
 
-        <h3>MyStore</h3>
+    <div id="cartItems">
 
-        <p>
-            © 2026 MyStore. All Rights Reserved.
-        </p>
+    </div>
 
-        <p>
-            Contact: +91 XXXXXXXXXX
-        </p>
 
-    </footer>
-    <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
-    authDomain: "mystore-2f465.firebaseapp.com",
-    projectId: "mystore-2f465",
-    storageBucket: "mystore-2f465.firebasestorage.app",
-    messagingSenderId: "255687755598",
-    appId: "1:255687755598:web:3ec262c976672082bc801f",
-    measurementId: "G-4HZN3YFPLY"
-  };
+    <div class="cart-total">
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+        <h3>
+
+            Total:
+
+            ₹<span id="cartTotal">
+                0
+            </span>
+
+        </h3>
+
+
+        <button
+            class="checkout-btn"
+            onclick="openCheckout()"
+        >
+
+            Checkout
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- CHECKOUT -->
+<!-- ========================= -->
+
+<div
+    id="checkoutModal"
+    class="modal"
+>
+
+
+    <div class="checkout-box">
+
+
+        <button
+            class="close-modal"
+            onclick="closeCheckout()"
+        >
+
+            ✕
+
+        </button>
+
+
+        <h2>
+            Customer Details
+        </h2>
+
+
+        <input
+            type="text"
+            id="customerName"
+            placeholder="Your Name"
+        >
+
+
+        <input
+            type="tel"
+            id="customerPhone"
+            placeholder="Phone Number"
+        >
+
+
+        <textarea
+            id="customerAddress"
+            placeholder="Delivery Address"
+        ></textarea>
+
+
+        <button
+            class="order-btn"
+            onclick="placeOrder()"
+        >
+
+            Place Order on WhatsApp
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
+
+<footer>
+
+    <h3>
+        Punam Market
+    </h3>
+
+
+    <p>
+        © 2026 Punam Market. All Rights Reserved.
+    </p>
+
+
+    <p>
+        Contact: +91 XXXXXXXXXX
+    </p>
+
+</footer>
+
+
+
+<!-- ================================================= -->
+<!-- FIREBASE -->
+<!-- ================================================= -->
+
+<script type="module">
+
+    import {
+        initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+
+
+    import {
+        getAuth
+    } from
+    "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
+
+        authDomain:
+            "mystore-2f465.firebaseapp.com",
+
+        projectId:
+            "mystore-2f465",
+
+        storageBucket:
+            "mystore-2f465.firebasestorage.app",
+
+        messagingSenderId:
+            "255687755598",
+
+        appId:
+            "1:255687755598:web:3ec262c976672082bc801f",
+
+        measurementId:
+            "G-4HZN3YFPLY"
+
+    };
+
+
+    // Initialize Firebase
+
+    const app =
+        initializeApp(firebaseConfig);
+
+
+    // Initialize Authentication
+
+    const auth =
+        getAuth(app);
+
+
+    // Make Firebase available to script.js
+
+    window.firebaseApp =
+        app;
+
+    window.firebaseAuth =
+        auth;
+
 </script>
 
 
-    <script src="script.js"></script>
+
+<!-- ================================================= -->
+<!-- YOUR JAVASCRIPT -->
+<!-- ================================================= -->
+
+<script
+    type="module"
+    src="script.js"
+></script>
+
 
 </body>
 
