@@ -1,3 +1,129 @@
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+const auth = window.firebaseAuth;
+
+
+// ==========================
+// SIGN UP
+// ==========================
+
+window.signup = async function () {
+
+    const email =
+        document.getElementById("signupEmail").value;
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    if (!email || !password) {
+        alert("Email aur password enter karo.");
+        return;
+    }
+
+    try {
+
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        alert("Account successfully created! 🎉");
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+};
+
+
+// ==========================
+// LOGIN
+// ==========================
+
+window.login = async function () {
+
+    const email =
+        document.getElementById("loginEmail").value;
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    if (!email || !password) {
+        alert("Email aur password enter karo.");
+        return;
+    }
+
+    try {
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        alert("Login successful! ✅");
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+};
+
+
+// ==========================
+// GOOGLE LOGIN
+// ==========================
+
+window.googleLogin = async function () {
+
+    const provider =
+        new GoogleAuthProvider();
+
+    try {
+
+        await signInWithPopup(
+            auth,
+            provider
+        );
+
+        alert("Google login successful! 🎉");
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+};
+
+
+// ==========================
+// LOGOUT
+// ==========================
+
+window.logout = async function () {
+
+    try {
+
+        await signOut(auth);
+
+        alert("Logout successful.");
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+};
+
 // ==============================
 // PRODUCTS
 // ==============================
