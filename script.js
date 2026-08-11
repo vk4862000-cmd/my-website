@@ -1,628 +1,396 @@
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+<!DOCTYPE html>
+<html lang="en">
 
-const auth = window.firebaseAuth;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Northline Studio</title>
 
-// ==========================
-// SIGN UP
-// ==========================
+    <meta
+        name="description"
+        content="Northline Studio builds fast, conversion-focused websites for startups and product teams."
+    >
 
-window.signup = async function () {
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    const email =
-        document.getElementById("signupEmail").value;
+<body>
 
-    const password =
-        document.getElementById("signupPassword").value;
+    <!-- HEADER -->
+    <header class="site-header">
 
-    if (!email || !password) {
-        alert("Email aur password enter karo.");
-        return;
-    }
+        <div class="container nav">
 
-    try {
+            <a href="#" class="brand">
+                Northline
+            </a>
 
-        await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+            <nav>
+                <a href="#work">Work</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
 
-        alert("Account successfully created! 🎉");
+            <!-- SIGN IN -->
+            <button
+                class="account-button"
+                onclick="openAuth()"
+            >
+                👤 Sign In
+            </button>
 
-    } catch (error) {
+        </div>
 
-        alert(error.message);
+    </header>
 
-    }
-};
 
+    <!-- MAIN -->
+    <main>
 
-// ==========================
-// LOGIN
-// ==========================
+        <!-- HERO -->
+        <section class="hero container">
 
-window.login = async function () {
+            <p class="kicker">
+                Design + Engineering Studio
+            </p>
 
-    const email =
-        document.getElementById("loginEmail").value;
+            <h1>
+                Websites that look sharp,
+                <span>load instantly, and convert.</span>
+            </h1>
 
-    const password =
-        document.getElementById("loginPassword").value;
+            <p class="lede">
+                We turn rough ideas into memorable web experiences with clear
+                messaging, high-performance frontend architecture, and
+                launch-ready deployment pipelines.
+            </p>
 
-    if (!email || !password) {
-        alert("Email aur password enter karo.");
-        return;
-    }
+            <div class="hero-actions">
 
-    try {
+                <a href="#contact" class="btn btn-primary">
+                    Start a project
+                </a>
 
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+                <a href="#work" class="btn btn-ghost">
+                    See latest builds
+                </a>
 
-        alert("Login successful! ✅");
+            </div>
 
-    } catch (error) {
+        </section>
 
-        alert(error.message);
 
-    }
-};
+        <!-- WORK -->
+        <section id="work" class="container work">
 
+            <article class="card reveal">
 
-// ==========================
-// GOOGLE LOGIN
-// ==========================
+                <p class="tag">
+                    B2B SaaS
+                </p>
 
-window.googleLogin = async function () {
+                <h3>
+                    Pulseboard
+                </h3>
 
-    const provider =
-        new GoogleAuthProvider();
+                <p>
+                    Lifted trial conversion 31% with a product-led homepage revamp.
+                </p>
 
-    try {
+            </article>
 
-        await signInWithPopup(
-            auth,
-            provider
-        );
 
-        alert("Google login successful! 🎉");
+            <article class="card reveal">
 
-    } catch (error) {
+                <p class="tag">
+                    Creator Tools
+                </p>
 
-        alert(error.message);
+                <h3>
+                    Lumen Studio
+                </h3>
 
-    }
-};
+                <p>
+                    Rebuilt marketing pages on modern SSR stack, cutting TTFB in half.
+                </p>
 
+            </article>
 
-// ==========================
-// LOGOUT
-// ==========================
 
-window.logout = async function () {
+            <article class="card reveal">
 
-    try {
+                <p class="tag">
+                    Fintech
+                </p>
 
-        await signOut(auth);
+                <h3>
+                    Helio Pay
+                </h3>
 
-        alert("Logout successful.");
+                <p>
+                    Shipped launch site and docs hub in 10 days, ready for scale.
+                </p>
 
-    } catch (error) {
+            </article>
 
-        alert(error.message);
+        </section>
 
-    }
-};
 
-// ==============================
-// PRODUCTS
-// ==============================
+        <!-- SERVICES -->
+        <section id="services" class="container services">
 
-const products = [
+            <h2>
+                What we ship
+            </h2>
 
-    {
-        id: 1,
-        name: "Wireless Headphones",
-        price: 1499,
-        category: "electronics",
-        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e"
-    },
+            <div class="service-grid">
 
-    {
-        id: 2,
-        name: "Smart Watch",
-        price: 1999,
-        category: "electronics",
-        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
-    },
-
-    {
-        id: 3,
-        name: "Men's T-Shirt",
-        price: 599,
-        category: "clothing",
-        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"
-    },
-
-    {
-        id: 4,
-        name: "Running Shoes",
-        price: 2499,
-        category: "clothing",
-        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
-    },
-
-    {
-        id: 5,
-        name: "Leather Wallet",
-        price: 799,
-        category: "accessories",
-        image: "https://images.unsplash.com/photo-1627123424574-724758594e93"
-    },
-
-    {
-        id: 6,
-        name: "Sunglasses",
-        price: 999,
-        category: "accessories",
-        image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083"
-    }
-
-];
-
-
-// ==============================
-// CART
-// ==============================
-
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-
-// ==============================
-// DISPLAY PRODUCTS
-// ==============================
-
-function displayProducts(productList) {
-
-    const container =
-        document.getElementById("productContainer");
-
-    container.innerHTML = "";
-
-
-    productList.forEach(product => {
-
-        container.innerHTML += `
-
-            <div class="product-card">
-
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                >
-
-                <div class="product-info">
+                <div class="service reveal">
 
                     <h3>
-                        ${product.name}
+                        Strategy + Messaging
                     </h3>
 
-                    <p class="price">
-                        ₹${product.price}
+                    <p>
+                        Offer clarity, brand voice, and a structure built to convert.
                     </p>
-
-                    <button
-                        class="add-btn"
-                        onclick="addToCart(${product.id})"
-                    >
-                        Add to Cart
-                    </button>
 
                 </div>
 
-            </div>
 
-        `;
+                <div class="service reveal">
 
-    });
-
-}
-
-
-// ==============================
-// ADD TO CART
-// ==============================
-
-function addToCart(id) {
-
-    const product =
-        products.find(p => p.id === id);
-
-    const existing =
-        cart.find(item => item.id === id);
-
-
-    if (existing) {
-
-        existing.quantity++;
-
-    } else {
-
-        cart.push({
-            ...product,
-            quantity: 1
-        });
-
-    }
-
-
-    saveCart();
-
-    alert("Product added to cart 🛒");
-
-}
-
-
-// ==============================
-// SAVE CART
-// ==============================
-
-function saveCart() {
-
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(cart)
-    );
-
-    updateCart();
-
-}
-
-
-// ==============================
-// UPDATE CART
-// ==============================
-
-function updateCart() {
-
-    const cartItems =
-        document.getElementById("cartItems");
-
-    const cartCount =
-        document.getElementById("cartCount");
-
-    const cartTotal =
-        document.getElementById("cartTotal");
-
-
-    cartItems.innerHTML = "";
-
-    let total = 0;
-
-    let count = 0;
-
-
-    cart.forEach(item => {
-
-        total +=
-            item.price * item.quantity;
-
-        count += item.quantity;
-
-
-        cartItems.innerHTML += `
-
-            <div class="cart-item">
-
-                <div>
-
-                    <strong>
-                        ${item.name}
-                    </strong>
+                    <h3>
+                        UI Systems
+                    </h3>
 
                     <p>
-                        ₹${item.price}
+                        Reusable, accessible components that keep velocity high.
                     </p>
 
                 </div>
 
 
-                <div class="quantity">
+                <div class="service reveal">
 
-                    <button
-                        onclick="changeQuantity(
-                            ${item.id}, -1
-                        )"
-                    >
-                        -
-                    </button>
+                    <h3>
+                        Frontend Engineering
+                    </h3>
 
-                    ${item.quantity}
+                    <p>
+                        Fast Core Web Vitals, resilient routing, and clean handoff.
+                    </p>
 
-                    <button
-                        onclick="changeQuantity(
-                            ${item.id}, 1
-                        )"
-                    >
-                        +
-                    </button>
+                </div>
+
+
+                <div class="service reveal">
+
+                    <h3>
+                        Launch + Optimization
+                    </h3>
+
+                    <p>
+                        Analytics wiring, SEO baseline, and ongoing iteration support.
+                    </p>
 
                 </div>
 
             </div>
 
-        `;
+        </section>
 
-    });
 
+        <!-- CONTACT -->
+        <section id="contact" class="container contact reveal">
 
-    cartCount.innerText = count;
+            <h2>
+                Ready to launch?
+            </h2>
 
-    cartTotal.innerText = total;
+            <p>
+                Send a short brief and we'll reply with a scope,
+                timeline, and build plan.
+            </p>
 
-}
+            <a
+                class="btn btn-primary"
+                href="mailto:hello@northline.studio"
+            >
+                hello@northline.studio
+            </a>
 
+        </section>
 
-// ==============================
-// CHANGE QUANTITY
-// ==============================
+    </main>
 
-function changeQuantity(id, change) {
 
-    const item =
-        cart.find(item => item.id === id);
+    <!-- FOOTER -->
+    <footer class="container site-footer">
 
+        <p>
+            © 2026 Northline Studio
+        </p>
 
-    if (!item) return;
+    </footer>
 
 
-    item.quantity += change;
+    <!-- LOGIN / SIGN UP POPUP -->
 
+    <div
+        id="authModal"
+        class="auth-modal"
+    >
 
-    if (item.quantity <= 0) {
+        <div class="auth-box">
 
-        cart =
-            cart.filter(item => item.id !== id);
+            <!-- CLOSE -->
+            <button
+                class="auth-close"
+                onclick="closeAuth()"
+            >
+                ✕
+            </button>
 
-    }
 
+            <h2>
+                Welcome Back
+            </h2>
 
-    saveCart();
+            <p class="auth-subtitle">
+                Sign in or create your account
+            </p>
 
-}
 
+            <!-- SIGN UP -->
 
-// ==============================
-// OPEN CART
-// ==============================
+            <h3>
+                Create Account
+            </h3>
 
-function openCart() {
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="Email"
+            >
 
-    document
-        .getElementById("cartSidebar")
-        .classList.add("active");
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Password"
+            >
 
-}
+            <button
+                class="auth-primary"
+                onclick="signup()"
+            >
+                Sign Up
+            </button>
 
 
-// ==============================
-// CLOSE CART
-// ==============================
+            <div class="auth-divider">
+                OR
+            </div>
 
-function closeCart() {
 
-    document
-        .getElementById("cartSidebar")
-        .classList.remove("active");
+            <!-- LOGIN -->
 
-}
+            <h3>
+                Login
+            </h3>
 
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email"
+            >
 
-// ==============================
-// CHECKOUT
-// ==============================
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+            >
 
-function openCheckout() {
+            <button
+                class="auth-primary"
+                onclick="login()"
+            >
+                Login
+            </button>
 
-    if (cart.length === 0) {
 
-        alert("Your cart is empty!");
+            <!-- GOOGLE LOGIN -->
 
-        return;
+            <button
+                class="google-login"
+                onclick="googleLogin()"
+            >
+                🔵 Continue with Google
+            </button>
 
-    }
 
+            <!-- LOGOUT -->
 
-    document
-        .getElementById("checkoutModal")
-        .classList.add("active");
+            <button
+                class="logout-button"
+                onclick="logout()"
+            >
+                🚪 Logout
+            </button>
 
-}
+        </div>
 
+    </div>
 
-function closeCheckout() {
 
-    document
-        .getElementById("checkoutModal")
-        .classList.remove("active");
+    <!-- FIREBASE -->
 
-}
+    <script type="module">
 
+        import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 
-// ==============================
-// PLACE ORDER
-// ==============================
+        import { getAuth }
+        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-function placeOrder() {
 
-    const name =
-        document.getElementById("customerName").value;
+        const firebaseConfig = {
 
-    const phone =
-        document.getElementById("customerPhone").value;
+            apiKey: "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
 
-    const address =
-        document.getElementById("customerAddress").value;
+            authDomain: "mystore-2f465.firebaseapp.com",
 
+            projectId: "mystore-2f465",
 
-    if (!name || !phone || !address) {
+            storageBucket: "mystore-2f465.firebasestorage.app",
 
-        alert("Please fill all details.");
+            messagingSenderId: "255687755598",
 
-        return;
+            appId: "1:255687755598:web:3ec262c976672082bc801f",
 
-    }
+            measurementId: "G-4HZN3YFPLY"
 
+        };
 
-    let message =
-        "🛒 *NEW ORDER*%0A%0A";
 
+        const app = initializeApp(firebaseConfig);
 
-    message +=
-        "*Customer:* " + name + "%0A";
+        const auth = getAuth(app);
 
-    message +=
-        "*Phone:* " + phone + "%0A";
 
-    message +=
-        "*Address:* " + address + "%0A%0A";
+        window.firebaseApp = app;
 
+        window.firebaseAuth = auth;
 
-    message +=
-        "*Products:*%0A";
+    </script>
 
 
-    let total = 0;
+    <!-- JAVASCRIPT -->
 
+    <script type="module" src="script.js"></script>
 
-    cart.forEach(item => {
+</body>
 
-        const itemTotal =
-            item.price * item.quantity;
-
-        total += itemTotal;
-
-
-        message +=
-            "• " +
-            item.name +
-            " x " +
-            item.quantity +
-            " = ₹" +
-            itemTotal +
-            "%0A";
-
-    });
-
-
-    message +=
-        "%0A*Total: ₹" + total + "*";
-
-
-    // CHANGE THIS NUMBER
-    const whatsappNumber =
-        "919876543210";
-
-
-    const whatsappURL =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        message;
-
-
-    window.open(
-        whatsappURL,
-        "_blank"
-    );
-
-}
-
-
-// ==============================
-// SEARCH
-// ==============================
-
-document
-    .getElementById("searchInput")
-    .addEventListener(
-        "input",
-        function () {
-
-            const search =
-                this.value.toLowerCase();
-
-
-            const filtered =
-                products.filter(product =>
-                    product.name
-                        .toLowerCase()
-                        .includes(search)
-                );
-
-
-            displayProducts(filtered);
-
-        }
-    );
-
-
-// ==============================
-// CATEGORY FILTER
-// ==============================
-
-function filterProducts(category) {
-
-    if (category === "all") {
-
-        displayProducts(products);
-
-        return;
-
-    }
-
-
-    const filtered =
-        products.filter(
-            product =>
-                product.category === category
-        );
-
-
-    displayProducts(filtered);
-
-}
-
-
-// ==============================
-// SCROLL
-// ==============================
-
-function scrollToProducts() {
-
-    document
-        .getElementById("products")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
-
-}
-
-
-// ==============================
-// INITIALIZE
-// ==============================
-
-displayProducts(products);
-
-updateCart();
+</html>
