@@ -1,396 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
+// ===============================
+// NORTHLINE STUDIO - JAVASCRIPT
+// ===============================
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+// Get elements
+const authModal = document.getElementById("authModal");
 
-    <title>Northline Studio</title>
+// ===============================
+// OPEN LOGIN POPUP
+// ===============================
 
-    <meta
-        name="description"
-        content="Northline Studio builds fast, conversion-focused websites for startups and product teams."
-    >
+function openAuth() {
+    if (authModal) {
+        authModal.classList.add("active");
+    }
+}
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
-</head>
+// ===============================
+// CLOSE LOGIN POPUP
+// ===============================
 
-<body>
+function closeAuth() {
+    if (authModal) {
+        authModal.classList.remove("active");
+    }
+}
 
-    <!-- HEADER -->
-    <header class="site-header">
+// ===============================
+// SIGN UP
+// ===============================
 
-        <div class="container nav">
+async function signup() {
 
-            <a href="#" class="brand">
-                Northline
-            </a>
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
 
-            <nav>
-                <a href="#work">Work</a>
-                <a href="#services">Services</a>
-                <a href="#contact">Contact</a>
-            </nav>
+    if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+    }
 
-            <!-- SIGN IN -->
-            <button
-                class="account-button"
-                onclick="openAuth()"
-            >
-                👤 Sign In
-            </button>
+    try {
 
-        </div>
+        const { createUserWithEmailAndPassword } =
+            await import(
+                "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
+            );
 
-    </header>
+        await createUserWithEmailAndPassword(
+            window.firebaseAuth,
+            email,
+            password
+        );
 
+        alert("Account created successfully!");
 
-    <!-- MAIN -->
-    <main>
+        closeAuth();
 
-        <!-- HERO -->
-        <section class="hero container">
+    } catch (error) {
 
-            <p class="kicker">
-                Design + Engineering Studio
-            </p>
+        console.error(error);
 
-            <h1>
-                Websites that look sharp,
-                <span>load instantly, and convert.</span>
-            </h1>
+        alert(error.message);
+    }
+}
 
-            <p class="lede">
-                We turn rough ideas into memorable web experiences with clear
-                messaging, high-performance frontend architecture, and
-                launch-ready deployment pipelines.
-            </p>
+// ===============================
+// LOGIN
+// ===============================
 
-            <div class="hero-actions">
+async function login() {
 
-                <a href="#contact" class="btn btn-primary">
-                    Start a project
-                </a>
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
 
-                <a href="#work" class="btn btn-ghost">
-                    See latest builds
-                </a>
+    if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+    }
 
-            </div>
+    try {
 
-        </section>
+        const { signInWithEmailAndPassword } =
+            await import(
+                "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
+            );
 
+        await signInWithEmailAndPassword(
+            window.firebaseAuth,
+            email,
+            password
+        );
 
-        <!-- WORK -->
-        <section id="work" class="container work">
+        alert("Login successful!");
 
-            <article class="card reveal">
+        closeAuth();
 
-                <p class="tag">
-                    B2B SaaS
-                </p>
+    } catch (error) {
 
-                <h3>
-                    Pulseboard
-                </h3>
+        console.error(error);
 
-                <p>
-                    Lifted trial conversion 31% with a product-led homepage revamp.
-                </p>
+        alert(error.message);
+    }
+}
 
-            </article>
+// ===============================
+// GOOGLE LOGIN
+// ===============================
 
+async function googleLogin() {
 
-            <article class="card reveal">
+    try {
 
-                <p class="tag">
-                    Creator Tools
-                </p>
+        const {
+            GoogleAuthProvider,
+            signInWithPopup
+        } = await import(
+            "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
+        );
 
-                <h3>
-                    Lumen Studio
-                </h3>
+        const provider = new GoogleAuthProvider();
 
-                <p>
-                    Rebuilt marketing pages on modern SSR stack, cutting TTFB in half.
-                </p>
+        await signInWithPopup(
+            window.firebaseAuth,
+            provider
+        );
 
-            </article>
+        alert("Google login successful!");
 
+        closeAuth();
 
-            <article class="card reveal">
+    } catch (error) {
 
-                <p class="tag">
-                    Fintech
-                </p>
+        console.error(error);
 
-                <h3>
-                    Helio Pay
-                </h3>
+        alert(error.message);
+    }
+}
 
-                <p>
-                    Shipped launch site and docs hub in 10 days, ready for scale.
-                </p>
+// ===============================
+// LOGOUT
+// ===============================
 
-            </article>
+async function logout() {
 
-        </section>
+    try {
 
+        const { signOut } =
+            await import(
+                "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
+            );
 
-        <!-- SERVICES -->
-        <section id="services" class="container services">
+        await signOut(window.firebaseAuth);
 
-            <h2>
-                What we ship
-            </h2>
+        alert("Logged out successfully!");
 
-            <div class="service-grid">
+    } catch (error) {
 
-                <div class="service reveal">
+        console.error(error);
 
-                    <h3>
-                        Strategy + Messaging
-                    </h3>
+        alert(error.message);
+    }
+}
 
-                    <p>
-                        Offer clarity, brand voice, and a structure built to convert.
-                    </p>
+// ===============================
+// FOOTER YEAR
+// ===============================
 
-                </div>
+const yearElement = document.getElementById("year");
 
+if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+}
 
-                <div class="service reveal">
+// ===============================
+// CLOSE MODAL BY CLICKING OUTSIDE
+// ===============================
 
-                    <h3>
-                        UI Systems
-                    </h3>
+if (authModal) {
 
-                    <p>
-                        Reusable, accessible components that keep velocity high.
-                    </p>
+    authModal.addEventListener("click", function(event) {
 
-                </div>
+        if (event.target === authModal) {
+            closeAuth();
+        }
 
+    });
 
-                <div class="service reveal">
-
-                    <h3>
-                        Frontend Engineering
-                    </h3>
-
-                    <p>
-                        Fast Core Web Vitals, resilient routing, and clean handoff.
-                    </p>
-
-                </div>
-
-
-                <div class="service reveal">
-
-                    <h3>
-                        Launch + Optimization
-                    </h3>
-
-                    <p>
-                        Analytics wiring, SEO baseline, and ongoing iteration support.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CONTACT -->
-        <section id="contact" class="container contact reveal">
-
-            <h2>
-                Ready to launch?
-            </h2>
-
-            <p>
-                Send a short brief and we'll reply with a scope,
-                timeline, and build plan.
-            </p>
-
-            <a
-                class="btn btn-primary"
-                href="mailto:hello@northline.studio"
-            >
-                hello@northline.studio
-            </a>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer class="container site-footer">
-
-        <p>
-            © 2026 Northline Studio
-        </p>
-
-    </footer>
-
-
-    <!-- LOGIN / SIGN UP POPUP -->
-
-    <div
-        id="authModal"
-        class="auth-modal"
-    >
-
-        <div class="auth-box">
-
-            <!-- CLOSE -->
-            <button
-                class="auth-close"
-                onclick="closeAuth()"
-            >
-                ✕
-            </button>
-
-
-            <h2>
-                Welcome Back
-            </h2>
-
-            <p class="auth-subtitle">
-                Sign in or create your account
-            </p>
-
-
-            <!-- SIGN UP -->
-
-            <h3>
-                Create Account
-            </h3>
-
-            <input
-                type="email"
-                id="signupEmail"
-                placeholder="Email"
-            >
-
-            <input
-                type="password"
-                id="signupPassword"
-                placeholder="Password"
-            >
-
-            <button
-                class="auth-primary"
-                onclick="signup()"
-            >
-                Sign Up
-            </button>
-
-
-            <div class="auth-divider">
-                OR
-            </div>
-
-
-            <!-- LOGIN -->
-
-            <h3>
-                Login
-            </h3>
-
-            <input
-                type="email"
-                id="loginEmail"
-                placeholder="Email"
-            >
-
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Password"
-            >
-
-            <button
-                class="auth-primary"
-                onclick="login()"
-            >
-                Login
-            </button>
-
-
-            <!-- GOOGLE LOGIN -->
-
-            <button
-                class="google-login"
-                onclick="googleLogin()"
-            >
-                🔵 Continue with Google
-            </button>
-
-
-            <!-- LOGOUT -->
-
-            <button
-                class="logout-button"
-                onclick="logout()"
-            >
-                🚪 Logout
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- FIREBASE -->
-
-    <script type="module">
-
-        import { initializeApp }
-        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-
-        import { getAuth }
-        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-
-        const firebaseConfig = {
-
-            apiKey: "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
-
-            authDomain: "mystore-2f465.firebaseapp.com",
-
-            projectId: "mystore-2f465",
-
-            storageBucket: "mystore-2f465.firebasestorage.app",
-
-            messagingSenderId: "255687755598",
-
-            appId: "1:255687755598:web:3ec262c976672082bc801f",
-
-            measurementId: "G-4HZN3YFPLY"
-
-        };
-
-
-        const app = initializeApp(firebaseConfig);
-
-        const auth = getAuth(app);
-
-
-        window.firebaseApp = app;
-
-        window.firebaseAuth = auth;
-
-    </script>
-
-
-    <!-- JAVASCRIPT -->
-
-    <script type="module" src="script.js"></script>
-
-</body>
-
-</html>
+}
