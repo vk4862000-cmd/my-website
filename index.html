@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Northline Studio</title>
@@ -16,12 +14,7 @@
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap"
@@ -29,60 +22,44 @@
   >
 
   <!-- CSS -->
-  <link rel="stylesheet" href="./styles.css">
-
+  <!-- IMPORTANT: GitHub file ka naam style.css hai -->
+  <link rel="stylesheet" href="./style.css">
 </head>
-
 
 <body>
 
   <!-- Background -->
-  <div class="bg-noise"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
 
 
-  <!-- ========================= -->
-  <!-- HEADER -->
-  <!-- ========================= -->
+  <!-- =========================
+       HEADER
+  ========================== -->
 
   <header class="site-header">
 
     <div class="container nav">
 
       <!-- Logo -->
-
       <a href="#" class="brand">
         Northline
       </a>
 
 
       <!-- Navigation -->
-
       <nav>
-
-        <a href="#work">
-          Work
-        </a>
-
-        <a href="#services">
-          Services
-        </a>
-
-        <a href="#contact">
-          Contact
-        </a>
-
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
       </nav>
 
 
       <!-- Sign In -->
-
       <button
         class="account-button"
         onclick="openAuth()"
       >
-
         👤 Sign In
-
       </button>
 
     </div>
@@ -90,17 +67,13 @@
   </header>
 
 
-
-  <!-- ========================= -->
-  <!-- MAIN -->
-  <!-- ========================= -->
+  <!-- =========================
+       MAIN
+  ========================== -->
 
   <main>
 
-
-    <!-- ========================= -->
     <!-- HERO -->
-    <!-- ========================= -->
 
     <section class="hero container">
 
@@ -108,26 +81,18 @@
         Design + Engineering Studio
       </p>
 
-
       <h1>
-
         Websites that look sharp,
-
         <span>
           load instantly, and convert.
         </span>
-
       </h1>
 
-
       <p class="lede">
-
         We turn rough ideas into memorable web experiences with clear
         messaging, high-performance frontend architecture, and launch-ready
         deployment pipelines.
-
       </p>
-
 
       <div class="hero-actions">
 
@@ -137,7 +102,6 @@
         >
           Start a project
         </a>
-
 
         <a
           href="#work"
@@ -151,10 +115,9 @@
     </section>
 
 
-
-    <!-- ========================= -->
-    <!-- WORK -->
-    <!-- ========================= -->
+    <!-- =========================
+         WORK
+    ========================== -->
 
     <section
       id="work"
@@ -214,10 +177,9 @@
     </section>
 
 
-
-    <!-- ========================= -->
-    <!-- SERVICES -->
-    <!-- ========================= -->
+    <!-- =========================
+         SERVICES
+    ========================== -->
 
     <section
       id="services"
@@ -228,9 +190,7 @@
         What we ship
       </h2>
 
-
       <div class="service-grid">
-
 
         <div class="service reveal">
 
@@ -288,10 +248,9 @@
     </section>
 
 
-
-    <!-- ========================= -->
-    <!-- CONTACT -->
-    <!-- ========================= -->
+    <!-- =========================
+         CONTACT
+    ========================== -->
 
     <section
       id="contact"
@@ -302,22 +261,16 @@
         Ready to launch?
       </h2>
 
-
       <p>
-
         Send a short brief and we'll reply with a scope,
         timeline, and build plan.
-
       </p>
-
 
       <a
         class="btn btn-primary"
         href="mailto:hello@northline.studio"
       >
-
         hello@northline.studio
-
       </a>
 
     </section>
@@ -325,27 +278,22 @@
   </main>
 
 
-
-  <!-- ========================= -->
-  <!-- FOOTER -->
-  <!-- ========================= -->
+  <!-- =========================
+       FOOTER
+  ========================== -->
 
   <footer class="container site-footer">
 
     <p>
-
-      © <span id="year"></span>
-      Northline Studio
-
+      © <span id="year"></span> Northline Studio
     </p>
 
   </footer>
 
 
-
-  <!-- ================================================= -->
-  <!-- LOGIN / SIGN UP POPUP -->
-  <!-- ================================================= -->
+  <!-- =========================
+       LOGIN / SIGN UP POPUP
+  ========================== -->
 
   <div
     id="authModal"
@@ -354,42 +302,31 @@
 
     <div class="auth-box">
 
-
-      <!-- Close Button -->
-
+      <!-- Close -->
       <button
         class="auth-close"
         onclick="closeAuth()"
       >
-
         ✕
-
       </button>
 
-
-      <!-- Title -->
 
       <h2>
         Welcome Back
       </h2>
 
-
       <p class="auth-subtitle">
-
         Sign in or create your account
-
       </p>
 
 
-
-      <!-- ========================= -->
-      <!-- SIGN UP -->
-      <!-- ========================= -->
+      <!-- =========================
+           SIGN UP
+      ========================== -->
 
       <h3>
         Create Account
       </h3>
-
 
       <input
         type="email"
@@ -397,43 +334,32 @@
         placeholder="Email"
       >
 
-
       <input
         type="password"
         id="signupPassword"
         placeholder="Password"
       >
 
-
       <button
         class="auth-primary"
         onclick="signup()"
       >
-
         Sign Up
-
       </button>
 
 
-
-      <!-- Divider -->
-
       <div class="auth-divider">
-
         OR
-
       </div>
 
 
-
-      <!-- ========================= -->
-      <!-- LOGIN -->
-      <!-- ========================= -->
+      <!-- =========================
+           LOGIN
+      ========================== -->
 
       <h3>
         Login
       </h3>
-
 
       <input
         type="email"
@@ -441,49 +367,39 @@
         placeholder="Email"
       >
 
-
       <input
         type="password"
         id="loginPassword"
         placeholder="Password"
       >
 
-
       <button
         class="auth-primary"
         onclick="login()"
       >
-
         Login
-
       </button>
 
 
-
-      <!-- ========================= -->
-      <!-- GOOGLE LOGIN -->
-      <!-- ========================= -->
+      <!-- =========================
+           GOOGLE LOGIN
+      ========================== -->
 
       <button
         class="google-login"
         onclick="googleLogin()"
       >
-
         🔵 Continue with Google
-
       </button>
 
 
-
-      <!-- Logout -->
+      <!-- LOGOUT -->
 
       <button
         class="logout-button"
         onclick="logout()"
       >
-
         🚪 Logout
-
       </button>
 
     </div>
@@ -491,83 +407,60 @@
   </div>
 
 
-
-  <!-- ================================================= -->
-  <!-- FIREBASE -->
-  <!-- ================================================= -->
+  <!-- =========================
+       FIREBASE
+  ========================== -->
 
   <script type="module">
 
-    import {
-      initializeApp
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 
+    import { getAuth }
+      from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-    import {
-      getAuth
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-
-    /* Firebase Configuration */
 
     const firebaseConfig = {
 
-      apiKey:
-        "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
+      apiKey: "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
 
-      authDomain:
-        "mystore-2f465.firebaseapp.com",
+      authDomain: "mystore-2f465.firebaseapp.com",
 
-      projectId:
-        "mystore-2f465",
+      projectId: "mystore-2f465",
 
-      storageBucket:
-        "mystore-2f465.firebasestorage.app",
+      storageBucket: "mystore-2f465.firebasestorage.app",
 
-      messagingSenderId:
-        "255687755598",
+      messagingSenderId: "255687755598",
 
-      appId:
-        "1:255687755598:web:3ec262c976672082bc801f",
+      appId: "1:255687755598:web:3ec262c976672082bc801f",
 
-      measurementId:
-        "G-4HZN3YFPLY"
+      measurementId: "G-4HZN3YFPLY"
 
     };
 
 
-    /* Initialize Firebase */
+    // Initialize Firebase
 
-    const app =
-      initializeApp(firebaseConfig);
-
-
-    /* Firebase Authentication */
-
-    const auth =
-      getAuth(app);
+    const app = initializeApp(firebaseConfig);
 
 
-    /* Make Firebase available to script.js */
+    // Firebase Authentication
 
-    window.firebaseApp =
-      app;
+    const auth = getAuth(app);
 
 
-    window.firebaseAuth =
-      auth;
+    // Make Firebase available to script.js
+
+    window.firebaseApp = app;
+
+    window.firebaseAuth = auth;
 
   </script>
 
 
-
-  <!-- ========================= -->
-  <!-- JAVASCRIPT -->
-  <!-- ========================= -->
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
   <script
     type="module"
