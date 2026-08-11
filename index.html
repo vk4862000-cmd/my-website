@@ -26,10 +26,14 @@
 
 <body>
 
+  <!-- BACKGROUND -->
   <div class="bg-noise" aria-hidden="true"></div>
 
 
+  <!-- ========================= -->
   <!-- HEADER -->
+  <!-- ========================= -->
+
   <header class="site-header">
 
     <div class="container nav">
@@ -47,6 +51,7 @@
 
 
       <!-- SIGN IN BUTTON -->
+
       <button
         class="account-button"
         onclick="openAuth()"
@@ -60,16 +65,21 @@
 
 
 
+  <!-- ========================= -->
   <!-- MAIN -->
+  <!-- ========================= -->
+
   <main>
 
 
     <!-- HERO -->
+
     <section class="hero container">
 
       <p class="kicker">
         Design + Engineering Studio
       </p>
+
 
       <h1>
         Websites that look sharp,
@@ -77,6 +87,7 @@
           load instantly, and convert.
         </span>
       </h1>
+
 
       <p class="lede">
         We turn rough ideas into memorable web experiences with clear
@@ -94,6 +105,7 @@
           Start a project
         </a>
 
+
         <a
           href="#work"
           class="btn btn-ghost"
@@ -107,7 +119,10 @@
 
 
 
+    <!-- ========================= -->
     <!-- WORK -->
+    <!-- ========================= -->
+
     <section
       id="work"
       class="container work"
@@ -167,7 +182,10 @@
 
 
 
+    <!-- ========================= -->
     <!-- SERVICES -->
+    <!-- ========================= -->
+
     <section
       id="services"
       class="container services"
@@ -238,7 +256,10 @@
 
 
 
+    <!-- ========================= -->
     <!-- CONTACT -->
+    <!-- ========================= -->
+
     <section
       id="contact"
       class="container contact reveal"
@@ -248,10 +269,12 @@
         Ready to launch?
       </h2>
 
+
       <p>
-        Send a short brief and we’ll reply with a scope, timeline, and build
+        Send a short brief and we'll reply with a scope, timeline, and build
         plan.
       </p>
+
 
       <a
         class="btn btn-primary"
@@ -266,7 +289,10 @@
 
 
 
+  <!-- ========================= -->
   <!-- FOOTER -->
+  <!-- ========================= -->
+
   <footer class="container site-footer">
 
     <p>
@@ -277,9 +303,9 @@
 
 
 
-  <!-- ================================= -->
+  <!-- ================================================= -->
   <!-- LOGIN / SIGN UP POPUP -->
-  <!-- ================================= -->
+  <!-- ================================================= -->
 
   <div
     id="authModal"
@@ -289,7 +315,8 @@
     <div class="auth-box">
 
 
-      <!-- CLOSE -->
+      <!-- CLOSE BUTTON -->
+
       <button
         class="auth-close"
         onclick="closeAuth()"
@@ -302,16 +329,21 @@
         Welcome Back
       </h2>
 
+
       <p class="auth-subtitle">
         Sign in or create your account
       </p>
 
 
+
+      <!-- ========================= -->
       <!-- SIGN UP -->
+      <!-- ========================= -->
 
       <h3>
         Create Account
       </h3>
+
 
       <input
         type="email"
@@ -319,11 +351,13 @@
         placeholder="Email"
       />
 
+
       <input
         type="password"
         id="signupPassword"
         placeholder="Password"
       />
+
 
       <button
         class="auth-primary"
@@ -333,16 +367,21 @@
       </button>
 
 
+
       <div class="auth-divider">
         OR
       </div>
 
 
+
+      <!-- ========================= -->
       <!-- LOGIN -->
+      <!-- ========================= -->
 
       <h3>
         Login
       </h3>
+
 
       <input
         type="email"
@@ -350,11 +389,13 @@
         placeholder="Email"
       />
 
+
       <input
         type="password"
         id="loginPassword"
         placeholder="Password"
       />
+
 
       <button
         class="auth-primary"
@@ -364,7 +405,10 @@
       </button>
 
 
-      <!-- GOOGLE -->
+
+      <!-- ========================= -->
+      <!-- GOOGLE LOGIN -->
+      <!-- ========================= -->
 
       <button
         class="google-login"
@@ -374,13 +418,14 @@
       </button>
 
 
+
       <!-- LOGOUT -->
 
       <button
         class="logout-button"
         onclick="logout()"
       >
-        Logout
+        🚪 Logout
       </button>
 
     </div>
@@ -389,9 +434,9 @@
 
 
 
-  <!-- ================================= -->
+  <!-- ================================================= -->
   <!-- FIREBASE -->
-  <!-- ================================= -->
+  <!-- ================================================= -->
 
   <script type="module">
 
@@ -444,6 +489,7 @@
     window.firebaseApp =
       app;
 
+
     window.firebaseAuth =
       auth;
 
@@ -451,7 +497,9 @@
 
 
 
+  <!-- ================================================= -->
   <!-- YOUR JAVASCRIPT -->
+  <!-- ================================================= -->
 
   <script
     type="module"
