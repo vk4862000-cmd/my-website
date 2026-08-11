@@ -1,33 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Northline Studio</title>
 
   <meta
     name="description"
     content="Northline Studio builds fast, conversion-focused websites for startups and product teams."
-  />
+  >
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap"
     rel="stylesheet"
-  />
+  >
 
-  <link rel="stylesheet" href="./styles.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="./styles.css">
+
 </head>
 
 
 <body>
 
-  <!-- BACKGROUND -->
-  <div class="bg-noise" aria-hidden="true"></div>
+  <!-- Background -->
+  <div class="bg-noise"></div>
 
 
   <!-- ========================= -->
@@ -38,25 +48,41 @@
 
     <div class="container nav">
 
+      <!-- Logo -->
+
       <a href="#" class="brand">
         Northline
       </a>
 
 
+      <!-- Navigation -->
+
       <nav>
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
+
+        <a href="#work">
+          Work
+        </a>
+
+        <a href="#services">
+          Services
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
       </nav>
 
 
-      <!-- SIGN IN BUTTON -->
+      <!-- Sign In -->
 
       <button
         class="account-button"
         onclick="openAuth()"
       >
+
         👤 Sign In
+
       </button>
 
     </div>
@@ -72,7 +98,9 @@
   <main>
 
 
+    <!-- ========================= -->
     <!-- HERO -->
+    <!-- ========================= -->
 
     <section class="hero container">
 
@@ -82,17 +110,22 @@
 
 
       <h1>
+
         Websites that look sharp,
+
         <span>
           load instantly, and convert.
         </span>
+
       </h1>
 
 
       <p class="lede">
+
         We turn rough ideas into memorable web experiences with clear
         messaging, high-performance frontend architecture, and launch-ready
         deployment pipelines.
+
       </p>
 
 
@@ -271,8 +304,10 @@
 
 
       <p>
-        Send a short brief and we'll reply with a scope, timeline, and build
-        plan.
+
+        Send a short brief and we'll reply with a scope,
+        timeline, and build plan.
+
       </p>
 
 
@@ -280,7 +315,9 @@
         class="btn btn-primary"
         href="mailto:hello@northline.studio"
       >
+
         hello@northline.studio
+
       </a>
 
     </section>
@@ -296,7 +333,10 @@
   <footer class="container site-footer">
 
     <p>
-      © <span id="year"></span> Northline Studio
+
+      © <span id="year"></span>
+      Northline Studio
+
     </p>
 
   </footer>
@@ -315,15 +355,19 @@
     <div class="auth-box">
 
 
-      <!-- CLOSE BUTTON -->
+      <!-- Close Button -->
 
       <button
         class="auth-close"
         onclick="closeAuth()"
       >
+
         ✕
+
       </button>
 
+
+      <!-- Title -->
 
       <h2>
         Welcome Back
@@ -331,7 +375,9 @@
 
 
       <p class="auth-subtitle">
+
         Sign in or create your account
+
       </p>
 
 
@@ -349,27 +395,33 @@
         type="email"
         id="signupEmail"
         placeholder="Email"
-      />
+      >
 
 
       <input
         type="password"
         id="signupPassword"
         placeholder="Password"
-      />
+      >
 
 
       <button
         class="auth-primary"
         onclick="signup()"
       >
+
         Sign Up
+
       </button>
 
 
 
+      <!-- Divider -->
+
       <div class="auth-divider">
+
         OR
+
       </div>
 
 
@@ -387,21 +439,23 @@
         type="email"
         id="loginEmail"
         placeholder="Email"
-      />
+      >
 
 
       <input
         type="password"
         id="loginPassword"
         placeholder="Password"
-      />
+      >
 
 
       <button
         class="auth-primary"
         onclick="login()"
       >
+
         Login
+
       </button>
 
 
@@ -414,18 +468,22 @@
         class="google-login"
         onclick="googleLogin()"
       >
+
         🔵 Continue with Google
+
       </button>
 
 
 
-      <!-- LOGOUT -->
+      <!-- Logout -->
 
       <button
         class="logout-button"
         onclick="logout()"
       >
+
         🚪 Logout
+
       </button>
 
     </div>
@@ -442,15 +500,19 @@
 
     import {
       initializeApp
-    } from
+    }
+    from
     "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 
 
     import {
       getAuth
-    } from
+    }
+    from
     "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
+
+    /* Firebase Configuration */
 
     const firebaseConfig = {
 
@@ -478,13 +540,19 @@
     };
 
 
+    /* Initialize Firebase */
+
     const app =
       initializeApp(firebaseConfig);
 
 
+    /* Firebase Authentication */
+
     const auth =
       getAuth(app);
 
+
+    /* Make Firebase available to script.js */
 
     window.firebaseApp =
       app;
@@ -497,9 +565,9 @@
 
 
 
-  <!-- ================================================= -->
-  <!-- YOUR JAVASCRIPT -->
-  <!-- ================================================= -->
+  <!-- ========================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ========================= -->
 
   <script
     type="module"
