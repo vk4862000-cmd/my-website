@@ -2,471 +2,394 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Northline Studio</title>
+    <title>Northline Studio</title>
 
-  <meta
-    name="description"
-    content="Northline Studio builds fast, conversion-focused websites for startups and product teams."
-  >
+    <meta
+        name="description"
+        content="Northline Studio builds fast, conversion-focused websites for startups and product teams."
+    >
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <!-- CSS -->
-  <!-- IMPORTANT: GitHub file ka naam style.css hai -->
-  <link rel="stylesheet" href="./style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Background -->
-  <div class="bg-noise" aria-hidden="true"></div>
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div class="container nav">
+
+            <a href="#" class="brand">
+                Northline
+            </a>
+
+            <nav>
+                <a href="#work">Work</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <!-- SIGN IN -->
+            <button
+                class="account-button"
+                onclick="openAuth()"
+            >
+                👤 Sign In
+            </button>
+
+        </div>
+
+    </header>
 
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+    <!-- MAIN -->
+    <main>
 
-  <header class="site-header">
+        <!-- HERO -->
+        <section class="hero container">
 
-    <div class="container nav">
+            <p class="kicker">
+                Design + Engineering Studio
+            </p>
 
-      <!-- Logo -->
-      <a href="#" class="brand">
-        Northline
-      </a>
+            <h1>
+                Websites that look sharp,
+                <span>load instantly, and convert.</span>
+            </h1>
+
+            <p class="lede">
+                We turn rough ideas into memorable web experiences with clear
+                messaging, high-performance frontend architecture, and
+                launch-ready deployment pipelines.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#contact" class="btn btn-primary">
+                    Start a project
+                </a>
+
+                <a href="#work" class="btn btn-ghost">
+                    See latest builds
+                </a>
+
+            </div>
+
+        </section>
 
 
-      <!-- Navigation -->
-      <nav>
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <!-- WORK -->
+        <section id="work" class="container work">
+
+            <article class="card reveal">
+
+                <p class="tag">
+                    B2B SaaS
+                </p>
+
+                <h3>
+                    Pulseboard
+                </h3>
+
+                <p>
+                    Lifted trial conversion 31% with a product-led homepage revamp.
+                </p>
+
+            </article>
 
 
-      <!-- Sign In -->
-      <button
-        class="account-button"
-        onclick="openAuth()"
-      >
-        👤 Sign In
-      </button>
+            <article class="card reveal">
+
+                <p class="tag">
+                    Creator Tools
+                </p>
+
+                <h3>
+                    Lumen Studio
+                </h3>
+
+                <p>
+                    Rebuilt marketing pages on modern SSR stack, cutting TTFB in half.
+                </p>
+
+            </article>
+
+
+            <article class="card reveal">
+
+                <p class="tag">
+                    Fintech
+                </p>
+
+                <h3>
+                    Helio Pay
+                </h3>
+
+                <p>
+                    Shipped launch site and docs hub in 10 days, ready for scale.
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- SERVICES -->
+        <section id="services" class="container services">
+
+            <h2>
+                What we ship
+            </h2>
+
+            <div class="service-grid">
+
+                <div class="service reveal">
+
+                    <h3>
+                        Strategy + Messaging
+                    </h3>
+
+                    <p>
+                        Offer clarity, brand voice, and a structure built to convert.
+                    </p>
+
+                </div>
+
+
+                <div class="service reveal">
+
+                    <h3>
+                        UI Systems
+                    </h3>
+
+                    <p>
+                        Reusable, accessible components that keep velocity high.
+                    </p>
+
+                </div>
+
+
+                <div class="service reveal">
+
+                    <h3>
+                        Frontend Engineering
+                    </h3>
+
+                    <p>
+                        Fast Core Web Vitals, resilient routing, and clean handoff.
+                    </p>
+
+                </div>
+
+
+                <div class="service reveal">
+
+                    <h3>
+                        Launch + Optimization
+                    </h3>
+
+                    <p>
+                        Analytics wiring, SEO baseline, and ongoing iteration support.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contact" class="container contact reveal">
+
+            <h2>
+                Ready to launch?
+            </h2>
+
+            <p>
+                Send a short brief and we'll reply with a scope,
+                timeline, and build plan.
+            </p>
+
+            <a
+                class="btn btn-primary"
+                href="mailto:hello@northline.studio"
+            >
+                hello@northline.studio
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="container site-footer">
+
+        <p>
+            © 2026 Northline Studio
+        </p>
+
+    </footer>
+
+
+    <!-- LOGIN / SIGN UP POPUP -->
+
+    <div
+        id="authModal"
+        class="auth-modal"
+    >
+
+        <div class="auth-box">
+
+            <!-- CLOSE -->
+            <button
+                class="auth-close"
+                onclick="closeAuth()"
+            >
+                ✕
+            </button>
+
+
+            <h2>
+                Welcome Back
+            </h2>
+
+            <p class="auth-subtitle">
+                Sign in or create your account
+            </p>
+
+
+            <!-- SIGN UP -->
+
+            <h3>
+                Create Account
+            </h3>
+
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="Email"
+            >
+
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Password"
+            >
+
+            <button
+                class="auth-primary"
+                onclick="signup()"
+            >
+                Sign Up
+            </button>
+
+
+            <div class="auth-divider">
+                OR
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <h3>
+                Login
+            </h3>
+
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Email"
+            >
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+            >
+
+            <button
+                class="auth-primary"
+                onclick="login()"
+            >
+                Login
+            </button>
+
+
+            <!-- GOOGLE LOGIN -->
+
+            <button
+                class="google-login"
+                onclick="googleLogin()"
+            >
+                🔵 Continue with Google
+            </button>
+
+
+            <!-- LOGOUT -->
+
+            <button
+                class="logout-button"
+                onclick="logout()"
+            >
+                🚪 Logout
+            </button>
+
+        </div>
 
     </div>
 
-  </header>
 
+    <!-- FIREBASE -->
 
-  <!-- =========================
-       MAIN
-  ========================== -->
+    <script type="module">
 
-  <main>
+        import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 
-    <!-- HERO -->
+        import { getAuth }
+        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
-    <section class="hero container">
 
-      <p class="kicker">
-        Design + Engineering Studio
-      </p>
+        const firebaseConfig = {
 
-      <h1>
-        Websites that look sharp,
-        <span>
-          load instantly, and convert.
-        </span>
-      </h1>
+            apiKey: "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
 
-      <p class="lede">
-        We turn rough ideas into memorable web experiences with clear
-        messaging, high-performance frontend architecture, and launch-ready
-        deployment pipelines.
-      </p>
+            authDomain: "mystore-2f465.firebaseapp.com",
 
-      <div class="hero-actions">
+            projectId: "mystore-2f465",
 
-        <a
-          href="#contact"
-          class="btn btn-primary"
-        >
-          Start a project
-        </a>
+            storageBucket: "mystore-2f465.firebasestorage.app",
 
-        <a
-          href="#work"
-          class="btn btn-ghost"
-        >
-          See latest builds
-        </a>
+            messagingSenderId: "255687755598",
 
-      </div>
+            appId: "1:255687755598:web:3ec262c976672082bc801f",
 
-    </section>
+            measurementId: "G-4HZN3YFPLY"
 
+        };
 
-    <!-- =========================
-         WORK
-    ========================== -->
 
-    <section
-      id="work"
-      class="container work"
-    >
+        const app = initializeApp(firebaseConfig);
 
-      <article class="card reveal">
+        const auth = getAuth(app);
 
-        <p class="tag">
-          B2B SaaS
-        </p>
 
-        <h3>
-          Pulseboard
-        </h3>
+        window.firebaseApp = app;
 
-        <p>
-          Lifted trial conversion 31% with a product-led homepage revamp.
-        </p>
+        window.firebaseAuth = auth;
 
-      </article>
+    </script>
 
 
-      <article class="card reveal">
+    <!-- JAVASCRIPT -->
 
-        <p class="tag">
-          Creator Tools
-        </p>
-
-        <h3>
-          Lumen Studio
-        </h3>
-
-        <p>
-          Rebuilt marketing pages on modern SSR stack, cutting TTFB in half.
-        </p>
-
-      </article>
-
-
-      <article class="card reveal">
-
-        <p class="tag">
-          Fintech
-        </p>
-
-        <h3>
-          Helio Pay
-        </h3>
-
-        <p>
-          Shipped launch site and docs hub in 10 days, ready for scale.
-        </p>
-
-      </article>
-
-    </section>
-
-
-    <!-- =========================
-         SERVICES
-    ========================== -->
-
-    <section
-      id="services"
-      class="container services"
-    >
-
-      <h2>
-        What we ship
-      </h2>
-
-      <div class="service-grid">
-
-        <div class="service reveal">
-
-          <h3>
-            Strategy + Messaging
-          </h3>
-
-          <p>
-            Offer clarity, brand voice, and a structure built to convert.
-          </p>
-
-        </div>
-
-
-        <div class="service reveal">
-
-          <h3>
-            UI Systems
-          </h3>
-
-          <p>
-            Reusable, accessible components that keep velocity high.
-          </p>
-
-        </div>
-
-
-        <div class="service reveal">
-
-          <h3>
-            Frontend Engineering
-          </h3>
-
-          <p>
-            Fast Core Web Vitals, resilient routing, and clean handoff.
-          </p>
-
-        </div>
-
-
-        <div class="service reveal">
-
-          <h3>
-            Launch + Optimization
-          </h3>
-
-          <p>
-            Analytics wiring, SEO baseline, and ongoing iteration support.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CONTACT
-    ========================== -->
-
-    <section
-      id="contact"
-      class="container contact reveal"
-    >
-
-      <h2>
-        Ready to launch?
-      </h2>
-
-      <p>
-        Send a short brief and we'll reply with a scope,
-        timeline, and build plan.
-      </p>
-
-      <a
-        class="btn btn-primary"
-        href="mailto:hello@northline.studio"
-      >
-        hello@northline.studio
-      </a>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       FOOTER
-  ========================== -->
-
-  <footer class="container site-footer">
-
-    <p>
-      © <span id="year"></span> Northline Studio
-    </p>
-
-  </footer>
-
-
-  <!-- =========================
-       LOGIN / SIGN UP POPUP
-  ========================== -->
-
-  <div
-    id="authModal"
-    class="auth-modal"
-  >
-
-    <div class="auth-box">
-
-      <!-- Close -->
-      <button
-        class="auth-close"
-        onclick="closeAuth()"
-      >
-        ✕
-      </button>
-
-
-      <h2>
-        Welcome Back
-      </h2>
-
-      <p class="auth-subtitle">
-        Sign in or create your account
-      </p>
-
-
-      <!-- =========================
-           SIGN UP
-      ========================== -->
-
-      <h3>
-        Create Account
-      </h3>
-
-      <input
-        type="email"
-        id="signupEmail"
-        placeholder="Email"
-      >
-
-      <input
-        type="password"
-        id="signupPassword"
-        placeholder="Password"
-      >
-
-      <button
-        class="auth-primary"
-        onclick="signup()"
-      >
-        Sign Up
-      </button>
-
-
-      <div class="auth-divider">
-        OR
-      </div>
-
-
-      <!-- =========================
-           LOGIN
-      ========================== -->
-
-      <h3>
-        Login
-      </h3>
-
-      <input
-        type="email"
-        id="loginEmail"
-        placeholder="Email"
-      >
-
-      <input
-        type="password"
-        id="loginPassword"
-        placeholder="Password"
-      >
-
-      <button
-        class="auth-primary"
-        onclick="login()"
-      >
-        Login
-      </button>
-
-
-      <!-- =========================
-           GOOGLE LOGIN
-      ========================== -->
-
-      <button
-        class="google-login"
-        onclick="googleLogin()"
-      >
-        🔵 Continue with Google
-      </button>
-
-
-      <!-- LOGOUT -->
-
-      <button
-        class="logout-button"
-        onclick="logout()"
-      >
-        🚪 Logout
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- =========================
-       FIREBASE
-  ========================== -->
-
-  <script type="module">
-
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-
-    import { getAuth }
-      from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-
-    const firebaseConfig = {
-
-      apiKey: "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
-
-      authDomain: "mystore-2f465.firebaseapp.com",
-
-      projectId: "mystore-2f465",
-
-      storageBucket: "mystore-2f465.firebasestorage.app",
-
-      messagingSenderId: "255687755598",
-
-      appId: "1:255687755598:web:3ec262c976672082bc801f",
-
-      measurementId: "G-4HZN3YFPLY"
-
-    };
-
-
-    // Initialize Firebase
-
-    const app = initializeApp(firebaseConfig);
-
-
-    // Firebase Authentication
-
-    const auth = getAuth(app);
-
-
-    // Make Firebase available to script.js
-
-    window.firebaseApp = app;
-
-    window.firebaseAuth = auth;
-
-  </script>
-
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
-
-  <script
-    type="module"
-    src="./script.js"
-  ></script>
-
+    <script type="module" src="script.js"></script>
 
 </body>
 
