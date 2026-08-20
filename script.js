@@ -1,27 +1,27 @@
+// ================================
+// AUTH MODAL
+// ================================
+
 const authModal = document.getElementById("authModal");
 
 
-// SIGN IN BUTTON
-const signInButton = document.querySelector(".account-button");
-
-if (signInButton) {
-    signInButton.addEventListener("click", function () {
+// OPEN LOGIN POPUP
+window.openAuth = function () {
+    if (authModal) {
         authModal.classList.add("active");
-    });
-}
+    }
+};
 
 
-// CLOSE BUTTON
-const closeButton = document.querySelector(".auth-close");
-
-if (closeButton) {
-    closeButton.addEventListener("click", function () {
+// CLOSE LOGIN POPUP
+window.closeAuth = function () {
+    if (authModal) {
         authModal.classList.remove("active");
-    });
-}
+    }
+};
 
 
-// CLICK OUTSIDE MODAL TO CLOSE
+// CLOSE WHEN CLICKING OUTSIDE
 if (authModal) {
     authModal.addEventListener("click", function (event) {
 
@@ -33,11 +33,17 @@ if (authModal) {
 }
 
 
+// ================================
 // SIGN UP
+// ================================
+
 window.signup = async function () {
 
-    const email = document.getElementById("signupEmail").value;
-    const password = document.getElementById("signupPassword").value;
+    const email =
+        document.getElementById("signupEmail").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
 
     if (!email || !password) {
         alert("Email aur password enter karo.");
@@ -60,21 +66,28 @@ window.signup = async function () {
 
         alert("Account successfully created!");
 
-        authModal.classList.remove("active");
+        closeAuth();
 
     } catch (error) {
 
+        console.error(error);
         alert(error.message);
 
     }
 };
 
 
+// ================================
 // LOGIN
+// ================================
+
 window.login = async function () {
 
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
 
     if (!email || !password) {
         alert("Email aur password enter karo.");
@@ -97,17 +110,21 @@ window.login = async function () {
 
         alert("Login successful!");
 
-        authModal.classList.remove("active");
+        closeAuth();
 
     } catch (error) {
 
+        console.error(error);
         alert(error.message);
 
     }
 };
 
 
+// ================================
 // GOOGLE LOGIN
+// ================================
+
 window.googleLogin = async function () {
 
     try {
@@ -128,22 +145,28 @@ window.googleLogin = async function () {
 
         alert("Google login successful!");
 
-        authModal.classList.remove("active");
+        closeAuth();
 
     } catch (error) {
 
+        console.error(error);
         alert(error.message);
 
     }
 };
 
 
+// ================================
 // LOGOUT
+// ================================
+
 window.logout = async function () {
 
     try {
 
-        const { signOut } = await import(
+        const {
+            signOut
+        } = await import(
             "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
         );
 
@@ -153,6 +176,7 @@ window.logout = async function () {
 
     } catch (error) {
 
+        console.error(error);
         alert(error.message);
 
     }
