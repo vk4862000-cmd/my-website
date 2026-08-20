@@ -1,50 +1,56 @@
-// ===============================
-// NORTHLINE STUDIO - JAVASCRIPT
-// ===============================
-
-// Get elements
 const authModal = document.getElementById("authModal");
 
-// ===============================
-// OPEN LOGIN POPUP
-// ===============================
 
-function openAuth() {
-    if (authModal) {
+// SIGN IN BUTTON
+const signInButton = document.querySelector(".account-button");
+
+if (signInButton) {
+    signInButton.addEventListener("click", function () {
         authModal.classList.add("active");
-    }
+    });
 }
 
-// ===============================
-// CLOSE LOGIN POPUP
-// ===============================
 
-function closeAuth() {
-    if (authModal) {
+// CLOSE BUTTON
+const closeButton = document.querySelector(".auth-close");
+
+if (closeButton) {
+    closeButton.addEventListener("click", function () {
         authModal.classList.remove("active");
-    }
+    });
 }
 
-// ===============================
+
+// CLICK OUTSIDE MODAL TO CLOSE
+if (authModal) {
+    authModal.addEventListener("click", function (event) {
+
+        if (event.target === authModal) {
+            authModal.classList.remove("active");
+        }
+
+    });
+}
+
+
 // SIGN UP
-// ===============================
+window.signup = async function () {
 
-async function signup() {
-
-    const email = document.getElementById("signupEmail").value.trim();
+    const email = document.getElementById("signupEmail").value;
     const password = document.getElementById("signupPassword").value;
 
     if (!email || !password) {
-        alert("Please enter email and password.");
+        alert("Email aur password enter karo.");
         return;
     }
 
     try {
 
-        const { createUserWithEmailAndPassword } =
-            await import(
-                "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
-            );
+        const {
+            createUserWithEmailAndPassword
+        } = await import(
+            "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
+        );
 
         await createUserWithEmailAndPassword(
             window.firebaseAuth,
@@ -52,38 +58,36 @@ async function signup() {
             password
         );
 
-        alert("Account created successfully!");
+        alert("Account successfully created!");
 
-        closeAuth();
+        authModal.classList.remove("active");
 
     } catch (error) {
 
-        console.error(error);
-
         alert(error.message);
+
     }
-}
+};
 
-// ===============================
+
 // LOGIN
-// ===============================
+window.login = async function () {
 
-async function login() {
-
-    const email = document.getElementById("loginEmail").value.trim();
+    const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
 
     if (!email || !password) {
-        alert("Please enter email and password.");
+        alert("Email aur password enter karo.");
         return;
     }
 
     try {
 
-        const { signInWithEmailAndPassword } =
-            await import(
-                "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
-            );
+        const {
+            signInWithEmailAndPassword
+        } = await import(
+            "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
+        );
 
         await signInWithEmailAndPassword(
             window.firebaseAuth,
@@ -93,21 +97,18 @@ async function login() {
 
         alert("Login successful!");
 
-        closeAuth();
+        authModal.classList.remove("active");
 
     } catch (error) {
 
-        console.error(error);
-
         alert(error.message);
+
     }
-}
+};
 
-// ===============================
+
 // GOOGLE LOGIN
-// ===============================
-
-async function googleLogin() {
+window.googleLogin = async function () {
 
     try {
 
@@ -127,63 +128,32 @@ async function googleLogin() {
 
         alert("Google login successful!");
 
-        closeAuth();
+        authModal.classList.remove("active");
 
     } catch (error) {
 
-        console.error(error);
-
         alert(error.message);
+
     }
-}
+};
 
-// ===============================
+
 // LOGOUT
-// ===============================
-
-async function logout() {
+window.logout = async function () {
 
     try {
 
-        const { signOut } =
-            await import(
-                "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
-            );
+        const { signOut } = await import(
+            "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js"
+        );
 
         await signOut(window.firebaseAuth);
 
-        alert("Logged out successfully!");
+        alert("Logout successful!");
 
     } catch (error) {
 
-        console.error(error);
-
         alert(error.message);
+
     }
-}
-
-// ===============================
-// FOOTER YEAR
-// ===============================
-
-const yearElement = document.getElementById("year");
-
-if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-}
-
-// ===============================
-// CLOSE MODAL BY CLICKING OUTSIDE
-// ===============================
-
-if (authModal) {
-
-    authModal.addEventListener("click", function(event) {
-
-        if (event.target === authModal) {
-            closeAuth();
-        }
-
-    });
-
-}
+};
