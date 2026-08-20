@@ -5,12 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Northline Studio</title>
-
-    <meta
-        name="description"
-        content="Northline Studio builds fast, conversion-focused websites for startups and product teams."
-    >
+    <title>My Store - Online Shopping</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -18,205 +13,216 @@
 <body>
 
     <!-- HEADER -->
-    <header class="site-header">
+    <header>
 
-        <div class="container nav">
-
-            <a href="#" class="brand">
-                Northline
-            </a>
-
-            <nav>
-                <a href="#work">Work</a>
-                <a href="#services">Services</a>
-                <a href="#contact">Contact</a>
-            </nav>
-
-            <!-- SIGN IN -->
-            <button id="signInButton" class="account-button">
-                👤 Sign In
-            </button>
-
+        <div class="logo">
+            🛍️ My Store
         </div>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search products..."
+                onkeyup="searchProducts()"
+            >
+        </div>
+
+        <button class="cart-button" onclick="openCart()">
+            🛒 Cart
+            <span id="cartCount">0</span>
+        </button>
+
+        <button class="login-button" onclick="openAuth()">
+            👤 Sign In
+        </button>
 
     </header>
 
 
-    <!-- MAIN -->
-    <main>
+    <!-- NAVIGATION -->
+    <nav>
 
-        <!-- HERO -->
-        <section class="hero container">
+        <button onclick="filterProducts('all')">
+            All
+        </button>
 
-            <p class="kicker">
-                Design + Engineering Studio
-            </p>
+        <button onclick="filterProducts('electronics')">
+            Electronics
+        </button>
+
+        <button onclick="filterProducts('clothing')">
+            Clothing
+        </button>
+
+        <button onclick="filterProducts('accessories')">
+            Accessories
+        </button>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div>
 
             <h1>
-                Websites that look sharp,
-                <span>load instantly, and convert.</span>
+                Welcome to My Store
             </h1>
 
-            <p class="lede">
-                We turn rough ideas into memorable web experiences with clear
-                messaging, high-performance frontend architecture, and
-                launch-ready deployment pipelines.
-            </p>
-
-            <div class="hero-actions">
-
-                <a href="#contact" class="btn btn-primary">
-                    Start a project
-                </a>
-
-                <a href="#work" class="btn btn-ghost">
-                    See latest builds
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- WORK -->
-        <section id="work" class="container work">
-
-            <article class="card reveal">
-                <p class="tag">B2B SaaS</p>
-
-                <h3>Pulseboard</h3>
-
-                <p>
-                    Lifted trial conversion 31% with a product-led homepage revamp.
-                </p>
-            </article>
-
-
-            <article class="card reveal">
-                <p class="tag">Creator Tools</p>
-
-                <h3>Lumen Studio</h3>
-
-                <p>
-                    Rebuilt marketing pages on modern SSR stack, cutting TTFB in half.
-                </p>
-            </article>
-
-
-            <article class="card reveal">
-                <p class="tag">Fintech</p>
-
-                <h3>Helio Pay</h3>
-
-                <p>
-                    Shipped launch site and docs hub in 10 days, ready for scale.
-                </p>
-            </article>
-
-        </section>
-
-
-        <!-- SERVICES -->
-        <section id="services" class="container services">
-
-            <h2>What we ship</h2>
-
-            <div class="service-grid">
-
-                <div class="service reveal">
-                    <h3>Strategy + Messaging</h3>
-
-                    <p>
-                        Offer clarity, brand voice, and a structure built to convert.
-                    </p>
-                </div>
-
-
-                <div class="service reveal">
-                    <h3>UI Systems</h3>
-
-                    <p>
-                        Reusable, accessible components that keep velocity high.
-                    </p>
-                </div>
-
-
-                <div class="service reveal">
-                    <h3>Frontend Engineering</h3>
-
-                    <p>
-                        Fast Core Web Vitals, resilient routing, and clean handoff.
-                    </p>
-                </div>
-
-
-                <div class="service reveal">
-                    <h3>Launch + Optimization</h3>
-
-                    <p>
-                        Analytics wiring, SEO baseline, and ongoing iteration support.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CONTACT -->
-        <section id="contact" class="container contact reveal">
-
-            <h2>Ready to launch?</h2>
-
             <p>
-                Send a short brief and we'll reply with a scope,
-                timeline, and build plan.
+                Find the best products at the best prices.
             </p>
 
-            <a
-                class="btn btn-primary"
-                href="mailto:hello@northline.studio"
-            >
-                hello@northline.studio
-            </a>
+            <button onclick="scrollToProducts()">
+                Shop Now
+            </button>
 
-        </section>
+        </div>
 
-    </main>
+    </section>
 
 
-    <!-- FOOTER -->
-    <footer class="container site-footer">
+    <!-- PRODUCTS -->
+    <section class="products-section">
 
-        <p>
-            © 2026 Northline Studio
-        </p>
+        <h2>
+            Our Products
+        </h2>
 
-    </footer>
+        <div
+            id="productContainer"
+            class="product-container"
+        >
+
+            <!-- Products JavaScript se aayenge -->
+
+        </div>
+
+    </section>
 
 
-    <!-- LOGIN / SIGN UP POPUP -->
+    <!-- CART SIDEBAR -->
+    <div
+        id="cartSidebar"
+        class="cart-sidebar"
+    >
 
-    <div id="authModal" class="auth-modal">
+        <div class="cart-header">
 
-        <div class="auth-box">
+            <h2>
+                🛒 Your Cart
+            </h2>
 
-            <!-- CLOSE -->
-            <button id="closeAuthButton" class="auth-close">
+            <button onclick="closeCart()">
                 ✕
             </button>
 
+        </div>
 
-            <h2>Welcome Back</h2>
 
-            <p class="auth-subtitle">
-                Sign in or create your account
+        <div id="cartItems">
+
+            <p>
+                Your cart is empty.
             </p>
+
+        </div>
+
+
+        <div class="cart-total">
+
+            <h3>
+                Total:
+                ₹<span id="cartTotal">0</span>
+            </h3>
+
+            <button
+                class="checkout-btn"
+                onclick="openCheckout()"
+            >
+                Checkout
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHECKOUT MODAL -->
+    <div
+        id="checkoutModal"
+        class="modal"
+    >
+
+        <div class="checkout-box">
+
+            <button
+                class="close-modal"
+                onclick="closeCheckout()"
+            >
+                ✕
+            </button>
+
+            <h2>
+                Checkout
+            </h2>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Full Name"
+            >
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="Phone Number"
+            >
+
+            <textarea
+                id="customerAddress"
+                placeholder="Delivery Address"
+            ></textarea>
+
+            <button
+                class="order-btn"
+                onclick="placeOrder()"
+            >
+                Place Order
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOGIN MODAL -->
+    <div
+        id="authModal"
+        class="modal"
+    >
+
+        <div class="checkout-box">
+
+            <button
+                class="close-modal"
+                onclick="closeAuth()"
+            >
+                ✕
+            </button>
+
+            <h2>
+                👤 My Account
+            </h2>
 
 
             <!-- SIGN UP -->
 
-            <h3>Create Account</h3>
+            <h3>
+                Create Account
+            </h3>
 
             <input
                 type="email"
@@ -230,19 +236,22 @@
                 placeholder="Password"
             >
 
-            <button id="signupButton" class="auth-primary">
+            <button
+                class="order-btn"
+                onclick="signup()"
+            >
                 Sign Up
             </button>
 
 
-            <div class="auth-divider">
-                OR
-            </div>
+            <hr>
 
 
             <!-- LOGIN -->
 
-            <h3>Login</h3>
+            <h3>
+                Login
+            </h3>
 
             <input
                 type="email"
@@ -256,21 +265,30 @@
                 placeholder="Password"
             >
 
-            <button id="loginButton" class="auth-primary">
+            <button
+                class="order-btn"
+                onclick="login()"
+            >
                 Login
             </button>
 
 
-            <!-- GOOGLE LOGIN -->
+            <!-- GOOGLE -->
 
-            <button id="googleLoginButton" class="google-login">
+            <button
+                class="google-login"
+                onclick="googleLogin()"
+            >
                 🔵 Continue with Google
             </button>
 
 
             <!-- LOGOUT -->
 
-            <button id="logoutButton" class="logout-button">
+            <button
+                class="logout-button"
+                onclick="logout()"
+            >
                 🚪 Logout
             </button>
 
@@ -279,253 +297,74 @@
     </div>
 
 
-    <!-- FIREBASE + AUTH -->
+    <!-- FOOTER -->
+    <footer>
 
+        <p>
+            © 2026 My Store. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- FIREBASE -->
     <script type="module">
 
         import { initializeApp }
         from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 
-        import {
-            getAuth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            GoogleAuthProvider,
-            signInWithPopup,
-            signOut
-        }
+        import { getAuth }
         from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
 
-        /* FIREBASE CONFIG */
-
         const firebaseConfig = {
 
-            apiKey: "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
+            apiKey:
+                "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
 
-            authDomain: "mystore-2f465.firebaseapp.com",
+            authDomain:
+                "mystore-2f465.firebaseapp.com",
 
-            projectId: "mystore-2f465",
+            projectId:
+                "mystore-2f465",
 
-            storageBucket: "mystore-2f465.firebasestorage.app",
+            storageBucket:
+                "mystore-2f465.firebasestorage.app",
 
-            messagingSenderId: "255687755598",
+            messagingSenderId:
+                "255687755598",
 
-            appId: "1:255687755598:web:3ec262c976672082bc801f",
+            appId:
+                "1:255687755598:web:3ec262c976672082bc801f",
 
-            measurementId: "G-4HZN3YFPLY"
+            measurementId:
+                "G-4HZN3YFPLY"
 
         };
 
 
-        /* INITIALIZE FIREBASE */
+        const app =
+            initializeApp(firebaseConfig);
 
-        const app = initializeApp(firebaseConfig);
+        const auth =
+            getAuth(app);
 
-        const auth = getAuth(app);
 
-        const googleProvider = new GoogleAuthProvider();
+        window.firebaseApp =
+            app;
 
-
-        /* GET ELEMENTS */
-
-        const authModal = document.getElementById("authModal");
-
-        const signInButton = document.getElementById("signInButton");
-
-        const closeAuthButton =
-            document.getElementById("closeAuthButton");
-
-        const signupButton =
-            document.getElementById("signupButton");
-
-        const loginButton =
-            document.getElementById("loginButton");
-
-        const googleLoginButton =
-            document.getElementById("googleLoginButton");
-
-        const logoutButton =
-            document.getElementById("logoutButton");
-
-
-        /* OPEN LOGIN */
-
-        signInButton.addEventListener("click", () => {
-
-            authModal.style.display = "flex";
-
-        });
-
-
-        /* CLOSE LOGIN */
-
-        closeAuthButton.addEventListener("click", () => {
-
-            authModal.style.display = "none";
-
-        });
-
-
-        /* CLICK OUTSIDE TO CLOSE */
-
-        authModal.addEventListener("click", (event) => {
-
-            if (event.target === authModal) {
-
-                authModal.style.display = "none";
-
-            }
-
-        });
-
-
-        /* SIGN UP */
-
-        signupButton.addEventListener("click", async () => {
-
-            const email =
-                document.getElementById("signupEmail").value.trim();
-
-            const password =
-                document.getElementById("signupPassword").value;
-
-
-            if (!email || !password) {
-
-                alert("Please enter email and password.");
-
-                return;
-
-            }
-
-
-            try {
-
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-                alert("Account created successfully!");
-
-                authModal.style.display = "none";
-
-            } catch (error) {
-
-                alert(error.message);
-
-            }
-
-        });
-
-
-        /* LOGIN */
-
-        loginButton.addEventListener("click", async () => {
-
-            const email =
-                document.getElementById("loginEmail").value.trim();
-
-            const password =
-                document.getElementById("loginPassword").value;
-
-
-            if (!email || !password) {
-
-                alert("Please enter email and password.");
-
-                return;
-
-            }
-
-
-            try {
-
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-                alert("Login successful!");
-
-                authModal.style.display = "none";
-
-            } catch (error) {
-
-                alert(error.message);
-
-            }
-
-        });
-
-
-        /* GOOGLE LOGIN */
-
-        googleLoginButton.addEventListener("click", async () => {
-
-            try {
-
-                await signInWithPopup(
-                    auth,
-                    googleProvider
-                );
-
-                alert("Google login successful!");
-
-                authModal.style.display = "none";
-
-            } catch (error) {
-
-                alert(error.message);
-
-            }
-
-        });
-
-
-        /* LOGOUT */
-
-        logoutButton.addEventListener("click", async () => {
-
-            try {
-
-                await signOut(auth);
-
-                alert("Logged out successfully!");
-
-            } catch (error) {
-
-                alert(error.message);
-
-            }
-
-        });
-
-
-        /* LOGIN STATUS */
-
-        auth.onAuthStateChanged((user) => {
-
-            if (user) {
-
-                signInButton.innerHTML = "👤 " + (
-                    user.displayName ||
-                    user.email ||
-                    "Account"
-                );
-
-            } else {
-
-                signInButton.innerHTML = "👤 Sign In";
-
-            }
-
-        });
+        window.firebaseAuth =
+            auth;
 
     </script>
+
+
+    <!-- JAVASCRIPT -->
+    <script
+        type="module"
+        src="script.js"
+    ></script>
+
 
 </body>
 
