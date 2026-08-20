@@ -12,7 +12,6 @@
         content="Northline Studio builds fast, conversion-focused websites for startups and product teams."
     >
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -34,10 +33,7 @@
             </nav>
 
             <!-- SIGN IN -->
-            <button
-                class="account-button"
-                onclick="openAuth()"
-            >
+            <button id="signInButton" class="account-button">
                 👤 Sign In
             </button>
 
@@ -86,53 +82,35 @@
         <section id="work" class="container work">
 
             <article class="card reveal">
+                <p class="tag">B2B SaaS</p>
 
-                <p class="tag">
-                    B2B SaaS
-                </p>
-
-                <h3>
-                    Pulseboard
-                </h3>
+                <h3>Pulseboard</h3>
 
                 <p>
                     Lifted trial conversion 31% with a product-led homepage revamp.
                 </p>
-
             </article>
 
 
             <article class="card reveal">
+                <p class="tag">Creator Tools</p>
 
-                <p class="tag">
-                    Creator Tools
-                </p>
-
-                <h3>
-                    Lumen Studio
-                </h3>
+                <h3>Lumen Studio</h3>
 
                 <p>
                     Rebuilt marketing pages on modern SSR stack, cutting TTFB in half.
                 </p>
-
             </article>
 
 
             <article class="card reveal">
+                <p class="tag">Fintech</p>
 
-                <p class="tag">
-                    Fintech
-                </p>
-
-                <h3>
-                    Helio Pay
-                </h3>
+                <h3>Helio Pay</h3>
 
                 <p>
                     Shipped launch site and docs hub in 10 days, ready for scale.
                 </p>
-
             </article>
 
         </section>
@@ -141,61 +119,43 @@
         <!-- SERVICES -->
         <section id="services" class="container services">
 
-            <h2>
-                What we ship
-            </h2>
+            <h2>What we ship</h2>
 
             <div class="service-grid">
 
                 <div class="service reveal">
-
-                    <h3>
-                        Strategy + Messaging
-                    </h3>
+                    <h3>Strategy + Messaging</h3>
 
                     <p>
                         Offer clarity, brand voice, and a structure built to convert.
                     </p>
-
                 </div>
 
 
                 <div class="service reveal">
-
-                    <h3>
-                        UI Systems
-                    </h3>
+                    <h3>UI Systems</h3>
 
                     <p>
                         Reusable, accessible components that keep velocity high.
                     </p>
-
                 </div>
 
 
                 <div class="service reveal">
-
-                    <h3>
-                        Frontend Engineering
-                    </h3>
+                    <h3>Frontend Engineering</h3>
 
                     <p>
                         Fast Core Web Vitals, resilient routing, and clean handoff.
                     </p>
-
                 </div>
 
 
                 <div class="service reveal">
-
-                    <h3>
-                        Launch + Optimization
-                    </h3>
+                    <h3>Launch + Optimization</h3>
 
                     <p>
                         Analytics wiring, SEO baseline, and ongoing iteration support.
                     </p>
-
                 </div>
 
             </div>
@@ -206,9 +166,7 @@
         <!-- CONTACT -->
         <section id="contact" class="container contact reveal">
 
-            <h2>
-                Ready to launch?
-            </h2>
+            <h2>Ready to launch?</h2>
 
             <p>
                 Send a short brief and we'll reply with a scope,
@@ -239,25 +197,17 @@
 
     <!-- LOGIN / SIGN UP POPUP -->
 
-    <div
-        id="authModal"
-        class="auth-modal"
-    >
+    <div id="authModal" class="auth-modal">
 
         <div class="auth-box">
 
             <!-- CLOSE -->
-            <button
-                class="auth-close"
-                onclick="closeAuth()"
-            >
+            <button id="closeAuthButton" class="auth-close">
                 ✕
             </button>
 
 
-            <h2>
-                Welcome Back
-            </h2>
+            <h2>Welcome Back</h2>
 
             <p class="auth-subtitle">
                 Sign in or create your account
@@ -266,9 +216,7 @@
 
             <!-- SIGN UP -->
 
-            <h3>
-                Create Account
-            </h3>
+            <h3>Create Account</h3>
 
             <input
                 type="email"
@@ -282,10 +230,7 @@
                 placeholder="Password"
             >
 
-            <button
-                class="auth-primary"
-                onclick="signup()"
-            >
+            <button id="signupButton" class="auth-primary">
                 Sign Up
             </button>
 
@@ -297,9 +242,7 @@
 
             <!-- LOGIN -->
 
-            <h3>
-                Login
-            </h3>
+            <h3>Login</h3>
 
             <input
                 type="email"
@@ -313,30 +256,21 @@
                 placeholder="Password"
             >
 
-            <button
-                class="auth-primary"
-                onclick="login()"
-            >
+            <button id="loginButton" class="auth-primary">
                 Login
             </button>
 
 
             <!-- GOOGLE LOGIN -->
 
-            <button
-                class="google-login"
-                onclick="googleLogin()"
-            >
+            <button id="googleLoginButton" class="google-login">
                 🔵 Continue with Google
             </button>
 
 
             <!-- LOGOUT -->
 
-            <button
-                class="logout-button"
-                onclick="logout()"
-            >
+            <button id="logoutButton" class="logout-button">
                 🚪 Logout
             </button>
 
@@ -345,16 +279,25 @@
     </div>
 
 
-    <!-- FIREBASE -->
+    <!-- FIREBASE + AUTH -->
 
     <script type="module">
 
         import { initializeApp }
         from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 
-        import { getAuth }
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            GoogleAuthProvider,
+            signInWithPopup,
+            signOut
+        }
         from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
+
+        /* FIREBASE CONFIG */
 
         const firebaseConfig = {
 
@@ -375,21 +318,214 @@
         };
 
 
+        /* INITIALIZE FIREBASE */
+
         const app = initializeApp(firebaseConfig);
 
         const auth = getAuth(app);
 
+        const googleProvider = new GoogleAuthProvider();
 
-        window.firebaseApp = app;
 
-        window.firebaseAuth = auth;
+        /* GET ELEMENTS */
+
+        const authModal = document.getElementById("authModal");
+
+        const signInButton = document.getElementById("signInButton");
+
+        const closeAuthButton =
+            document.getElementById("closeAuthButton");
+
+        const signupButton =
+            document.getElementById("signupButton");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const googleLoginButton =
+            document.getElementById("googleLoginButton");
+
+        const logoutButton =
+            document.getElementById("logoutButton");
+
+
+        /* OPEN LOGIN */
+
+        signInButton.addEventListener("click", () => {
+
+            authModal.style.display = "flex";
+
+        });
+
+
+        /* CLOSE LOGIN */
+
+        closeAuthButton.addEventListener("click", () => {
+
+            authModal.style.display = "none";
+
+        });
+
+
+        /* CLICK OUTSIDE TO CLOSE */
+
+        authModal.addEventListener("click", (event) => {
+
+            if (event.target === authModal) {
+
+                authModal.style.display = "none";
+
+            }
+
+        });
+
+
+        /* SIGN UP */
+
+        signupButton.addEventListener("click", async () => {
+
+            const email =
+                document.getElementById("signupEmail").value.trim();
+
+            const password =
+                document.getElementById("signupPassword").value;
+
+
+            if (!email || !password) {
+
+                alert("Please enter email and password.");
+
+                return;
+
+            }
+
+
+            try {
+
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+                alert("Account created successfully!");
+
+                authModal.style.display = "none";
+
+            } catch (error) {
+
+                alert(error.message);
+
+            }
+
+        });
+
+
+        /* LOGIN */
+
+        loginButton.addEventListener("click", async () => {
+
+            const email =
+                document.getElementById("loginEmail").value.trim();
+
+            const password =
+                document.getElementById("loginPassword").value;
+
+
+            if (!email || !password) {
+
+                alert("Please enter email and password.");
+
+                return;
+
+            }
+
+
+            try {
+
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+                alert("Login successful!");
+
+                authModal.style.display = "none";
+
+            } catch (error) {
+
+                alert(error.message);
+
+            }
+
+        });
+
+
+        /* GOOGLE LOGIN */
+
+        googleLoginButton.addEventListener("click", async () => {
+
+            try {
+
+                await signInWithPopup(
+                    auth,
+                    googleProvider
+                );
+
+                alert("Google login successful!");
+
+                authModal.style.display = "none";
+
+            } catch (error) {
+
+                alert(error.message);
+
+            }
+
+        });
+
+
+        /* LOGOUT */
+
+        logoutButton.addEventListener("click", async () => {
+
+            try {
+
+                await signOut(auth);
+
+                alert("Logged out successfully!");
+
+            } catch (error) {
+
+                alert(error.message);
+
+            }
+
+        });
+
+
+        /* LOGIN STATUS */
+
+        auth.onAuthStateChanged((user) => {
+
+            if (user) {
+
+                signInButton.innerHTML = "👤 " + (
+                    user.displayName ||
+                    user.email ||
+                    "Account"
+                );
+
+            } else {
+
+                signInButton.innerHTML = "👤 Sign In";
+
+            }
+
+        });
 
     </script>
-
-
-    <!-- JAVASCRIPT -->
-
-    <script type="module" src="script.js"></script>
 
 </body>
 
