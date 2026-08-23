@@ -13,10 +13,23 @@
 <body>
 
     <!-- HEADER -->
-    <header>
+    <header class="main-header">
 
         <div class="logo">
             🛍️ My Store
+        </div>
+
+        <div class="header-actions">
+
+            <button class="cart-button" onclick="openCart()">
+                🛒 Cart
+                <span id="cartCount">0</span>
+            </button>
+
+            <button class="login-button" onclick="openAuth()">
+                👤 Sign In
+            </button>
+
         </div>
 
         <div class="search-box">
@@ -24,24 +37,14 @@
                 type="text"
                 id="searchInput"
                 placeholder="Search products..."
-                onkeyup="searchProducts()"
             >
         </div>
-
-        <button class="cart-button" onclick="openCart()">
-            🛒 Cart
-            <span id="cartCount">0</span>
-        </button>
-
-        <button class="login-button" onclick="openAuth()">
-            👤 Sign In
-        </button>
 
     </header>
 
 
-    <!-- NAVIGATION -->
-    <nav>
+    <!-- CATEGORY NAV -->
+    <nav class="category-nav">
 
         <button onclick="filterProducts('all')">
             All
@@ -59,24 +62,36 @@
             Accessories
         </button>
 
+        <button onclick="filterProducts('beauty')">
+            Beauty
+        </button>
+
+        <button onclick="filterProducts('home')">
+            Home
+        </button>
+
     </nav>
 
 
     <!-- HERO -->
     <section class="hero">
 
-        <div>
+        <div class="hero-content">
+
+            <span>WELCOME TO MY STORE</span>
 
             <h1>
-                Welcome to My Store
+                Everything you need.
+                <br>
+                All in one place.
             </h1>
 
             <p>
-                Find the best products at the best prices.
+                Discover thousands of products at amazing prices.
             </p>
 
             <button onclick="scrollToProducts()">
-                Shop Now
+                Shop Now 🛍️
             </button>
 
         </div>
@@ -85,26 +100,37 @@
 
 
     <!-- PRODUCTS -->
-    <section class="products-section">
+    <section class="products-section" id="products">
 
-        <h2>
-            Our Products
-        </h2>
+        <div class="products-heading">
+
+            <div>
+                <span class="section-label">
+                    ONLINE SHOPPING
+                </span>
+
+                <h2>
+                    Our Products
+                </h2>
+            </div>
+
+            <p id="productResult">
+                Loading products...
+            </p>
+
+        </div>
+
 
         <div
             id="productContainer"
             class="product-container"
-        >
-
-            <!-- Products JavaScript se aayenge -->
-
-        </div>
+        ></div>
 
     </section>
 
 
-    <!-- CART SIDEBAR -->
-    <div
+    <!-- CART -->
+    <aside
         id="cartSidebar"
         class="cart-sidebar"
     >
@@ -121,33 +147,34 @@
 
         </div>
 
-
         <div id="cartItems">
 
-            <p>
+            <p class="empty-cart">
                 Your cart is empty.
             </p>
 
         </div>
 
-
         <div class="cart-total">
 
-            <h3>
-                Total:
-                ₹<span id="cartTotal">0</span>
-            </h3>
+            <div>
+                <span>Total</span>
+
+                <strong>
+                    ₹<span id="cartTotal">0</span>
+                </strong>
+            </div>
 
             <button
                 class="checkout-btn"
                 onclick="openCheckout()"
             >
-                Checkout
+                Proceed to Checkout
             </button>
 
         </div>
 
-    </div>
+    </aside>
 
 
     <!-- CHECKOUT MODAL -->
@@ -156,7 +183,7 @@
         class="modal"
     >
 
-        <div class="checkout-box">
+        <div class="modal-box">
 
             <button
                 class="close-modal"
@@ -166,8 +193,12 @@
             </button>
 
             <h2>
-                Checkout
+                Complete Your Order
             </h2>
+
+            <p class="modal-subtitle">
+                Enter your delivery details.
+            </p>
 
             <input
                 type="text"
@@ -204,7 +235,7 @@
         class="modal"
     >
 
-        <div class="checkout-box">
+        <div class="modal-box auth-box">
 
             <button
                 class="close-modal"
@@ -216,6 +247,10 @@
             <h2>
                 👤 My Account
             </h2>
+
+            <p class="modal-subtitle">
+                Sign in or create a new account.
+            </p>
 
 
             <!-- SIGN UP -->
@@ -240,11 +275,13 @@
                 class="order-btn"
                 onclick="signup()"
             >
-                Sign Up
+                Create Account
             </button>
 
 
-            <hr>
+            <div class="divider">
+                OR
+            </div>
 
 
             <!-- LOGIN -->
@@ -266,14 +303,12 @@
             >
 
             <button
-                class="order-btn"
+                class="login-submit"
                 onclick="login()"
             >
                 Login
             </button>
 
-
-            <!-- GOOGLE -->
 
             <button
                 class="google-login"
@@ -282,8 +317,6 @@
                 🔵 Continue with Google
             </button>
 
-
-            <!-- LOGOUT -->
 
             <button
                 class="logout-button"
@@ -300,68 +333,26 @@
     <!-- FOOTER -->
     <footer>
 
+        <h3>
+            🛍️ My Store
+        </h3>
+
         <p>
-            © 2026 My Store. All Rights Reserved.
+            Your online shopping destination.
         </p>
+
+        <small>
+            © 2026 My Store. All Rights Reserved.
+        </small>
 
     </footer>
 
 
-    <!-- FIREBASE -->
-    <script type="module">
-
-        import { initializeApp }
-        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-
-        import { getAuth }
-        from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-
-        const firebaseConfig = {
-
-            apiKey:
-                "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
-
-            authDomain:
-                "mystore-2f465.firebaseapp.com",
-
-            projectId:
-                "mystore-2f465",
-
-            storageBucket:
-                "mystore-2f465.firebasestorage.app",
-
-            messagingSenderId:
-                "255687755598",
-
-            appId:
-                "1:255687755598:web:3ec262c976672082bc801f",
-
-            measurementId:
-                "G-4HZN3YFPLY"
-
-        };
-
-
-        const app =
-            initializeApp(firebaseConfig);
-
-        const auth =
-            getAuth(app);
-
-
-        window.firebaseApp =
-            app;
-
-        window.firebaseAuth =
-            auth;
-
-    </script>
-
-
     <!-- JAVASCRIPT -->
-  <script src="script.js"></script>
-
+    <script
+        type="module"
+        src="script.js"
+    ></script>
 
 </body>
 
