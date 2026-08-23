@@ -704,7 +704,7 @@ window.closeCart = function () {
 // CHECKOUT
 // ======================================================
 
-window.openCheckout = async function () {
+window.openCheckout = function () {
 
     if (cart.length === 0) {
 
@@ -714,178 +714,26 @@ window.openCheckout = async function () {
     }
 
 
-    const total =
-        cart.reduce(
-            (sum, item) =>
-                sum + item.price * item.quantity,
-            0
-        );
+    const modal =
+        document.getElementById("checkoutModal");
 
+    if (modal) {
 
-    try {
+        modal.classList.add("active");
 
-        // Server se Razorpay Order create
-        const response =
-            await fetch("/create-order", {
+    }
 
-                method: "POST",
+};
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
 
-                body: JSON.stringify({
-                    amount: total
-                })
+window.closeCheckout = function () {
 
-            });
+    const modal =
+        document.getElementById("checkoutModal");
 
+    if (modal) {
 
-        const data =
-            await response.json();
-
-
-        if (!data.success) {
-
-            alert(
-                data.message ||
-                "Payment order create nahi hua."
-            );
-
-            return;
-        }
-
-
-        // Razorpay Checkout
-        const options = {
-
-            key: "YOUR_RAZORPAY_KEY_ID",
-
-            amount: data.amount,
-
-            currency: "INR",
-
-            name: "My Store",
-
-            description:
-                "My Store Shopping Order",
-
-            order_id:
-                data.orderId,
-
-
-            handler: async function (payment) {
-
-                try {
-
-                    const verifyResponse =
-                        await fetch(
-                            "/verify-payment",
-                            {
-
-                                method: "POST",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body:
-                                    JSON.stringify({
-                                        razorpay_order_id:
-                                            payment.razorpay_order_id,
-
-                                        razorpay_payment_id:
-                                            payment.razorpay_payment_id,
-
-                                        razorpay_signature:
-                                            payment.razorpay_signature
-                                    })
-
-                            }
-                        );
-
-
-                    const result =
-                        await verifyResponse.json();
-
-
-                    if (result.success) {
-
-                        alert(
-                            "🎉 Payment successful!\n\n" +
-                            "Payment ID: " +
-                            result.paymentId
-                        );
-
-
-                        cart = [];
-
-                        updateCart();
-
-                        closeCheckout();
-
-                        closeCart();
-
-                    } else {
-
-                        alert(
-                            "Payment verification failed."
-                        );
-
-                    }
-
-                } catch (error) {
-
-                    console.error(error);
-
-                    alert(
-                        "Payment verification error."
-                    );
-
-                }
-
-            },
-
-
-            prefill: {
-
-                name:
-                    document.getElementById(
-                        "customerName"
-                    )?.value || "",
-
-                contact:
-                    document.getElementById(
-                        "customerPhone"
-                    )?.value || ""
-
-            },
-
-
-            theme: {
-
-                color: "#2563eb"
-
-            }
-
-        };
-
-
-        const razorpay =
-            new Razorpay(options);
-
-
-        razorpay.open();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(
-            "Payment start nahi ho paaya."
-        );
+        modal.classList.remove("active");
 
     }
 
