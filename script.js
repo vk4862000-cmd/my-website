@@ -1,303 +1,449 @@
-// ======================================================
-// MY STORE - COMPLETE E-COMMERCE JAVASCRIPT
-// 1000 PRODUCTS
-// ======================================================
+/* =========================================================
+   MY STORE - COMPLETE E-COMMERCE JAVASCRIPT
+   1000 PRODUCTS + SEARCH + CATEGORY + CART + AUTH
+========================================================= */
 
-let products = [];
+console.log("My Store JavaScript started");
+
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
+
+let allProducts = [];
+let displayedProducts = [];
 let cart = [];
 
-
-// ======================================================
-// PRODUCT IMAGE DATABASE
-// ======================================================
-
-const productImages = {
-
-    electronics: [
-        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600",
-        "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600",
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
-        "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600",
-        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600",
-        "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600"
-    ],
-
-    clothing: [
-        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",
-        "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600",
-        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
-        "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600",
-        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600",
-        "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600"
-    ],
-
-    accessories: [
-        "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600",
-        "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600",
-        "https://images.unsplash.com/photo-1585386959984-a41552231693?w=600",
-        "https://images.unsplash.com/photo-1503602642458-232111445657?w=600",
-        "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600",
-        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600"
-    ],
-
-    beauty: [
-        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600",
-        "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600",
-        "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600",
-        "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600",
-        "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=600"
-    ],
-
-    home: [
-        "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600",
-        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600",
-        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600",
-        "https://images.unsplash.com/photo-1583845112203-454c8f2b2b04?w=600",
-        "https://images.unsplash.com/photo-1556912167-f556f1f39fdf?w=600"
-    ]
-};
+let currentCategory = "all";
+let currentSearch = "";
+let productsToShow = 60;
 
 
-// ======================================================
-// PRODUCT NAMES
-// ======================================================
+/* =========================================================
+   PRODUCT DATA
+========================================================= */
 
-const productNames = {
+const productTemplates = [
 
-    electronics: [
-        "Apple iPhone",
-        "Samsung Galaxy",
-        "OnePlus Smartphone",
-        "Google Pixel",
-        "Redmi Smartphone",
-        "Realme Smartphone",
-        "Motorola Phone",
-        "Vivo Smartphone",
-        "Oppo Smartphone",
-        "Nothing Phone",
-        "Gaming Laptop",
-        "Business Laptop",
-        "HP Laptop",
-        "Dell Laptop",
-        "Lenovo Laptop",
-        "MacBook",
-        "Wireless Headphones",
-        "Gaming Headphones",
-        "Bluetooth Earbuds",
-        "Smart Watch",
-        "Fitness Band",
-        "Bluetooth Speaker",
-        "Mechanical Keyboard",
-        "Gaming Mouse",
-        "LED Monitor",
-        "Smart TV",
-        "Tablet",
-        "Power Bank",
-        "Fast Charger",
-        "USB Cable"
-    ],
+    // ELECTRONICS
+    {
+        category: "electronics",
+        names: [
+            "Apple iPhone",
+            "Samsung Galaxy",
+            "OnePlus Nord",
+            "Google Pixel",
+            "Realme Smartphone",
+            "Vivo Smartphone",
+            "Oppo Smartphone",
+            "Motorola Smartphone",
+            "Nothing Phone",
+            "Redmi Note"
+        ],
+        basePrice: 12999,
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80"
+    },
 
-    clothing: [
-        "Men's T-Shirt",
-        "Women's T-Shirt",
-        "Cotton Shirt",
-        "Denim Shirt",
-        "Casual Shirt",
-        "Formal Shirt",
-        "Men's Jeans",
-        "Women's Jeans",
-        "Cargo Pants",
-        "Track Pants",
-        "Hoodie",
-        "Sweatshirt",
-        "Jacket",
-        "Winter Jacket",
-        "Kurta",
-        "Saree",
-        "Dress",
-        "Top",
-        "Skirt",
-        "Sports Shoes",
-        "Running Shoes",
-        "Casual Shoes",
-        "Sneakers",
-        "Sandals",
-        "Slippers"
-    ],
+    {
+        category: "electronics",
+        names: [
+            "Gaming Laptop",
+            "HP Laptop",
+            "Dell Inspiron",
+            "Lenovo IdeaPad",
+            "ASUS VivoBook",
+            "Acer Aspire",
+            "MacBook Air",
+            "MacBook Pro",
+            "MSI Gaming Laptop",
+            "Samsung Laptop"
+        ],
+        basePrice: 39999,
+        image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80"
+    },
 
-    accessories: [
-        "Leather Wallet",
-        "Travel Bag",
-        "Backpack",
-        "Laptop Bag",
-        "Sunglasses",
-        "Watch",
-        "Belt",
-        "Cap",
-        "Beanie",
-        "Key Chain",
-        "Travel Pouch",
-        "Hand Bag",
-        "Crossbody Bag",
-        "School Bag",
-        "Sports Bag",
-        "Card Holder",
-        "Passport Holder",
-        "Jewellery Box",
-        "Bracelet",
-        "Necklace",
-        "Ring",
-        "Earrings",
-        "Hair Band",
-        "Hair Clip"
-    ],
+    {
+        category: "electronics",
+        names: [
+            "Wireless Headphones",
+            "Gaming Headphones",
+            "Bluetooth Earbuds",
+            "AirPods",
+            "Noise Cancelling Headphones",
+            "Neckband",
+            "Gaming Earphones",
+            "Wireless Earphones",
+            "Bass Headphones",
+            "Premium Earbuds"
+        ],
+        basePrice: 999,
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
+    },
 
-    beauty: [
-        "Face Wash",
-        "Moisturizer",
-        "Face Cream",
-        "Sunscreen",
-        "Lip Balm",
-        "Lipstick",
-        "Foundation",
-        "Compact Powder",
-        "Mascara",
-        "Eyeliner",
-        "Perfume",
-        "Body Spray",
-        "Shampoo",
-        "Conditioner",
-        "Hair Oil",
-        "Face Serum",
-        "Body Lotion",
-        "Face Mask",
-        "Makeup Kit",
-        "Beauty Kit"
-    ],
+    {
+        category: "electronics",
+        names: [
+            "Smart Watch",
+            "Fitness Band",
+            "Apple Watch",
+            "Samsung Watch",
+            "Noise Smart Watch",
+            "Boat Smart Watch",
+            "Amazfit Watch",
+            "Garmin Watch",
+            "Kids Smart Watch",
+            "Premium Smart Watch"
+        ],
+        basePrice: 1499,
+        image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80"
+    },
 
-    home: [
-        "Bed Sheet",
-        "Pillow",
-        "Curtains",
-        "Table Lamp",
-        "Floor Lamp",
-        "Wall Clock",
-        "Storage Box",
-        "Kitchen Set",
-        "Dinner Set",
-        "Coffee Mug",
-        "Water Bottle",
-        "Non Stick Pan",
-        "Pressure Cooker",
-        "Mixer Grinder",
-        "Electric Kettle",
-        "Room Decor",
-        "Cushion",
-        "Carpet",
-        "Chair",
-        "Study Table"
-    ]
-};
+    {
+        category: "electronics",
+        names: [
+            "LED Smart TV",
+            "Samsung 4K TV",
+            "Sony Bravia TV",
+            "LG Smart TV",
+            "OnePlus TV",
+            "Mi Smart TV",
+            "Android TV",
+            "QLED TV",
+            "OLED TV",
+            "Full HD TV"
+        ],
+        basePrice: 24999,
+        image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=600&q=80"
+    },
 
 
-// ======================================================
-// CATEGORY LIST
-// ======================================================
+    // CLOTHING
+    {
+        category: "clothing",
+        names: [
+            "Men Cotton T-Shirt",
+            "Men Printed T-Shirt",
+            "Men Polo T-Shirt",
+            "Oversized T-Shirt",
+            "Full Sleeve T-Shirt",
+            "Sports T-Shirt",
+            "Casual T-Shirt",
+            "Premium T-Shirt",
+            "Graphic T-Shirt",
+            "Round Neck T-Shirt"
+        ],
+        basePrice: 399,
+        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"
+    },
 
-const categories = [
-    "electronics",
-    "clothing",
-    "accessories",
-    "beauty",
-    "home"
+    {
+        category: "clothing",
+        names: [
+            "Men Blue Jeans",
+            "Men Black Jeans",
+            "Slim Fit Jeans",
+            "Regular Fit Jeans",
+            "Cargo Jeans",
+            "Relaxed Jeans",
+            "Denim Jeans",
+            "Stretch Jeans",
+            "Classic Jeans",
+            "Premium Jeans"
+        ],
+        basePrice: 899,
+        image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "clothing",
+        names: [
+            "Women's Kurti",
+            "Printed Kurti",
+            "Cotton Kurti",
+            "Designer Kurti",
+            "Long Kurti",
+            "Party Kurti",
+            "Casual Kurti",
+            "Floral Kurti",
+            "Embroidered Kurti",
+            "Premium Kurti"
+        ],
+        basePrice: 599,
+        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "clothing",
+        names: [
+            "Women's Dress",
+            "Summer Dress",
+            "Party Dress",
+            "Floral Dress",
+            "Casual Dress",
+            "Maxi Dress",
+            "Midi Dress",
+            "Evening Dress",
+            "Designer Dress",
+            "Cotton Dress"
+        ],
+        basePrice: 799,
+        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80"
+    },
+
+
+    // ACCESSORIES
+    {
+        category: "accessories",
+        names: [
+            "Leather Wallet",
+            "Men Wallet",
+            "Card Holder",
+            "Premium Wallet",
+            "Travel Wallet",
+            "Slim Wallet",
+            "Classic Wallet",
+            "Designer Wallet",
+            "RFID Wallet",
+            "Cash Wallet"
+        ],
+        basePrice: 299,
+        image: "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "accessories",
+        names: [
+            "Leather Belt",
+            "Men Belt",
+            "Classic Belt",
+            "Formal Belt",
+            "Casual Belt",
+            "Designer Belt",
+            "Premium Belt",
+            "Black Belt",
+            "Brown Belt",
+            "Reversible Belt"
+        ],
+        basePrice: 349,
+        image: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "accessories",
+        names: [
+            "Sunglasses",
+            "Aviator Sunglasses",
+            "Round Sunglasses",
+            "Sports Sunglasses",
+            "Polarized Sunglasses",
+            "Classic Sunglasses",
+            "Designer Sunglasses",
+            "UV Protection Glasses",
+            "Wayfarer Sunglasses",
+            "Premium Sunglasses"
+        ],
+        basePrice: 499,
+        image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "accessories",
+        names: [
+            "Travel Backpack",
+            "Laptop Backpack",
+            "College Backpack",
+            "School Backpack",
+            "Office Backpack",
+            "Waterproof Backpack",
+            "Gaming Backpack",
+            "Casual Backpack",
+            "Premium Backpack",
+            "Travel Bag"
+        ],
+        basePrice: 799,
+        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80"
+    },
+
+
+    // BEAUTY
+    {
+        category: "beauty",
+        names: [
+            "Face Wash",
+            "Moisturizer",
+            "Face Cream",
+            "Sunscreen",
+            "Face Serum",
+            "Lip Balm",
+            "Face Mask",
+            "Body Lotion",
+            "Beauty Cream",
+            "Skin Care Kit"
+        ],
+        basePrice: 199,
+        image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "beauty",
+        names: [
+            "Shampoo",
+            "Conditioner",
+            "Hair Serum",
+            "Hair Oil",
+            "Hair Mask",
+            "Hair Care Kit",
+            "Anti Dandruff Shampoo",
+            "Hair Conditioner",
+            "Hair Gel",
+            "Hair Styling Cream"
+        ],
+        basePrice: 249,
+        image: "https://images.unsplash.com/photo-1522338242992-e1a54906a8da?auto=format&fit=crop&w=600&q=80"
+    },
+
+
+    // HOME
+    {
+        category: "home",
+        names: [
+            "Table Lamp",
+            "LED Lamp",
+            "Study Lamp",
+            "Bedside Lamp",
+            "Desk Lamp",
+            "Smart Lamp",
+            "Decorative Lamp",
+            "Night Lamp",
+            "Reading Lamp",
+            "Modern Lamp"
+        ],
+        basePrice: 499,
+        image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "home",
+        names: [
+            "Coffee Mug",
+            "Ceramic Mug",
+            "Travel Mug",
+            "Tea Cup",
+            "Coffee Cup",
+            "Steel Mug",
+            "Printed Mug",
+            "Premium Mug",
+            "Magic Mug",
+            "Large Coffee Mug"
+        ],
+        basePrice: 199,
+        image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80"
+    },
+
+    {
+        category: "home",
+        names: [
+            "Bedsheet",
+            "Cotton Bedsheet",
+            "Double Bedsheet",
+            "King Size Bedsheet",
+            "Single Bedsheet",
+            "Printed Bedsheet",
+            "Floral Bedsheet",
+            "Premium Bedsheet",
+            "Soft Bedsheet",
+            "Home Bedsheet"
+        ],
+        basePrice: 699,
+        image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=80"
+    }
 ];
 
 
-// ======================================================
-// GENERATE 1000 PRODUCTS
-// ======================================================
+/* =========================================================
+   GENERATE 1000 PRODUCTS
+========================================================= */
 
 function generateProducts() {
 
-    products = [];
+    allProducts = [];
 
     let id = 1;
 
-    while (products.length < 1000) {
+    while (allProducts.length < 1000) {
 
-        const category =
-            categories[(id - 1) % categories.length];
+        for (const template of productTemplates) {
 
-        const names =
-            productNames[category];
+            for (const name of template.names) {
 
-        const name =
-            names[(id - 1) % names.length];
+                if (allProducts.length >= 1000) {
+                    break;
+                }
 
-        const images =
-            productImages[category];
+                const variation = Math.floor(allProducts.length / 20) + 1;
 
-        const image =
-            images[(id - 1) % images.length];
+                const originalPrice =
+                    template.basePrice +
+                    (variation * 37) +
+                    ((id % 7) * 25);
 
-        // Different prices
-        const price =
-            Math.floor(
-                299 +
-                ((id * 137) % 50000)
-            );
+                const discount =
+                    5 + (id % 21);
 
-        const discount =
-            5 + ((id * 3) % 46);
+                const price =
+                    Math.round(
+                        originalPrice * (100 - discount) / 100
+                    );
 
-        const oldPrice =
-            Math.round(
-                price / (1 - discount / 100)
-            );
+                const rating =
+                    (3.5 + ((id * 7) % 15) / 10).toFixed(1);
 
-        const rating =
-            (3.5 + ((id * 7) % 15) / 10)
-            .toFixed(1);
+                allProducts.push({
 
-        products.push({
+                    id: id,
 
-            id: id,
+                    name: `${name} ${variation}`,
 
-            name: name + " " + id,
+                    category: template.category,
 
-            category: category,
+                    price: price,
 
-            price: price,
+                    originalPrice: originalPrice,
 
-            oldPrice: oldPrice,
+                    discount: discount,
 
-            discount: discount,
+                    rating: rating,
 
-            rating: rating,
+                    image: template.image
 
-            image: image
+                });
 
-        });
-
-        id++;
+                id++;
+            }
+        }
     }
 
+    console.log(
+        "Products generated:",
+        allProducts.length
+    );
 }
 
 
-// ======================================================
-// RENDER PRODUCTS
-// ======================================================
+/* =========================================================
+   DISPLAY PRODUCTS
+========================================================= */
 
-function renderProducts(productList = products) {
+function displayProducts(products) {
 
     const container =
         document.getElementById("productContainer");
 
-    if (!container) return;
+    if (!container) {
+        console.error("productContainer not found");
+        return;
+    }
 
-
-    if (productList.length === 0) {
+    if (!products || products.length === 0) {
 
         container.innerHTML = `
             <div style="
@@ -313,136 +459,193 @@ function renderProducts(productList = products) {
         return;
     }
 
+    const productsToDisplay =
+        products.slice(0, productsToShow);
 
     container.innerHTML =
-        productList.map(product => `
+        productsToDisplay.map(product => {
 
-        <div class="product-card">
+            return `
 
-            <div class="product-image">
+                <div class="product-card">
 
-                <span class="discount">
-                    ${product.discount}% OFF
-                </span>
+                    <div class="product-image">
 
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                    loading="lazy"
-                    onerror="this.style.display='none'; this.parentElement.innerHTML += '<span class=product-icon>🛍️</span>';"
-                >
+                        <span class="discount">
+                            ${product.discount}% OFF
+                        </span>
 
-            </div>
+                        <img
+                            src="${product.image}"
+                            alt="${product.name}"
+                            loading="lazy"
+                            onerror="this.src='https://picsum.photos/seed/product${product.id}/500/500'"
+                        >
 
-
-            <div class="product-info">
-
-                <small>
-                    ${product.category.toUpperCase()}
-                </small>
-
-                <h3>
-                    ${product.name}
-                </h3>
+                    </div>
 
 
-                <div class="rating">
-                    ⭐ ${product.rating}
+                    <div class="product-info">
+
+                        <small>
+                            ${product.category.toUpperCase()}
+                        </small>
+
+                        <h3>
+                            ${product.name}
+                        </h3>
+
+
+                        <div class="rating">
+                            ⭐ ${product.rating}
+                        </div>
+
+
+                        <div class="price">
+
+                            <strong>
+                                ₹${product.price.toLocaleString("en-IN")}
+                            </strong>
+
+                            <del>
+                                ₹${product.originalPrice.toLocaleString("en-IN")}
+                            </del>
+
+                        </div>
+
+
+                        <button
+                            class="add-cart-btn"
+                            onclick="addToCart(${product.id})"
+                        >
+                            🛒 Add to Cart
+                        </button>
+
+                    </div>
+
                 </div>
 
+            `;
 
-                <div class="price">
+        }).join("");
 
-                    <strong>
-                        ₹${product.price.toLocaleString("en-IN")}
-                    </strong>
 
-                    <del>
-                        ₹${product.oldPrice.toLocaleString("en-IN")}
-                    </del>
+    /* LOAD MORE BUTTON */
 
-                </div>
+    if (products.length > productsToShow) {
 
+        container.innerHTML += `
+
+            <div style="
+                grid-column:1/-1;
+                text-align:center;
+                padding:30px;
+            ">
 
                 <button
-                    class="add-cart-btn"
-                    onclick="addToCart(${product.id})"
+                    onclick="loadMoreProducts()"
+                    style="
+                        padding:14px 30px;
+                        background:#2563eb;
+                        color:white;
+                        border:none;
+                        border-radius:7px;
+                        font-size:16px;
+                        font-weight:bold;
+                        cursor:pointer;
+                    "
                 >
-                    🛒 Add to Cart
+                    Load More Products
                 </button>
 
             </div>
 
-        </div>
-
-    `).join("");
-
+        `;
+    }
 }
 
 
-// ======================================================
-// SEARCH
-// ======================================================
+/* =========================================================
+   LOAD MORE
+========================================================= */
+
+window.loadMoreProducts = function () {
+
+    productsToShow += 60;
+
+    displayProducts(displayedProducts);
+
+};
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 window.searchProducts = function () {
 
     const input =
         document.getElementById("searchInput");
 
-    if (!input) return;
+    currentSearch =
+        input
+            ? input.value.toLowerCase().trim()
+            : "";
 
-    const search =
-        input.value.toLowerCase().trim();
+    applyFilters();
 
-
-    const filtered =
-        products.filter(product =>
-
-            product.name
-                .toLowerCase()
-                .includes(search)
-
-            ||
-
-            product.category
-                .toLowerCase()
-                .includes(search)
-
-        );
-
-
-    renderProducts(filtered);
 };
 
 
-// ======================================================
-// FILTER CATEGORY
-// ======================================================
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
 
 window.filterProducts = function (category) {
 
-    if (category === "all") {
+    currentCategory = category.toLowerCase();
 
-        renderProducts(products);
+    productsToShow = 60;
 
-        return;
-    }
+    applyFilters();
 
-
-    const filtered =
-        products.filter(
-            product =>
-                product.category === category
-        );
-
-
-    renderProducts(filtered);
 };
 
 
-// ======================================================
-// SHOP NOW
-// ======================================================
+/* =========================================================
+   APPLY SEARCH + CATEGORY
+========================================================= */
+
+function applyFilters() {
+
+    displayedProducts =
+        allProducts.filter(product => {
+
+            const categoryMatch =
+                currentCategory === "all" ||
+                product.category === currentCategory;
+
+            const searchMatch =
+                currentSearch === "" ||
+                product.name
+                    .toLowerCase()
+                    .includes(currentSearch) ||
+                product.category
+                    .toLowerCase()
+                    .includes(currentSearch);
+
+            return categoryMatch && searchMatch;
+
+        });
+
+    displayProducts(displayedProducts);
+
+}
+
+
+/* =========================================================
+   SHOP NOW
+========================================================= */
 
 window.scrollToProducts = function () {
 
@@ -460,20 +663,59 @@ window.scrollToProducts = function () {
 };
 
 
-// ======================================================
-// CART
-// ======================================================
+/* =========================================================
+   CART
+========================================================= */
 
-window.addToCart = function (id) {
+function saveCart() {
+
+    localStorage.setItem(
+        "myStoreCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+function loadCart() {
+
+    try {
+
+        const saved =
+            localStorage.getItem("myStoreCart");
+
+        cart =
+            saved
+                ? JSON.parse(saved)
+                : [];
+
+    } catch {
+
+        cart = [];
+
+    }
+
+}
+
+
+/* =========================================================
+   ADD TO CART
+========================================================= */
+
+window.addToCart = function (productId) {
 
     const product =
-        products.find(p => p.id === id);
+        allProducts.find(
+            p => p.id === productId
+        );
 
     if (!product) return;
 
 
     const existing =
-        cart.find(item => item.id === id);
+        cart.find(
+            item => item.id === productId
+        );
 
 
     if (existing) {
@@ -484,7 +726,13 @@ window.addToCart = function (id) {
 
         cart.push({
 
-            ...product,
+            id: product.id,
+
+            name: product.name,
+
+            price: product.price,
+
+            image: product.image,
 
             quantity: 1
 
@@ -493,42 +741,100 @@ window.addToCart = function (id) {
     }
 
 
+    saveCart();
+
     updateCart();
 
-    alert(product.name + " added to cart 🛒");
+    alert(
+        `${product.name} added to cart! 🛒`
+    );
 
 };
 
 
-// ======================================================
-// UPDATE CART
-// ======================================================
+/* =========================================================
+   REMOVE FROM CART
+========================================================= */
+
+window.removeFromCart = function (productId) {
+
+    cart =
+        cart.filter(
+            item => item.id !== productId
+        );
+
+    saveCart();
+
+    updateCart();
+
+};
+
+
+/* =========================================================
+   CHANGE QUANTITY
+========================================================= */
+
+window.changeQuantity = function (
+    productId,
+    change
+) {
+
+    const item =
+        cart.find(
+            product => product.id === productId
+        );
+
+    if (!item) return;
+
+
+    item.quantity += change;
+
+
+    if (item.quantity <= 0) {
+
+        cart =
+            cart.filter(
+                product => product.id !== productId
+            );
+
+    }
+
+
+    saveCart();
+
+    updateCart();
+
+};
+
+
+/* =========================================================
+   UPDATE CART
+========================================================= */
 
 function updateCart() {
 
-    const cartCount =
-        document.getElementById("cartCount");
-
     const cartItems =
         document.getElementById("cartItems");
+
+    const cartCount =
+        document.getElementById("cartCount");
 
     const cartTotal =
         document.getElementById("cartTotal");
 
 
-    const totalQuantity =
+    const totalItems =
         cart.reduce(
-            (total, item) =>
-                total + item.quantity,
+            (sum, item) =>
+                sum + item.quantity,
             0
         );
 
 
     const totalPrice =
         cart.reduce(
-            (total, item) =>
-                total +
-                item.price * item.quantity,
+            (sum, item) =>
+                sum + item.price * item.quantity,
             0
         );
 
@@ -536,7 +842,7 @@ function updateCart() {
     if (cartCount) {
 
         cartCount.textContent =
-            totalQuantity;
+            totalItems;
 
     }
 
@@ -554,119 +860,108 @@ function updateCart() {
 
     if (cart.length === 0) {
 
-        cartItems.innerHTML =
-            "<p>Your cart is empty.</p>";
+        cartItems.innerHTML = `
+            <p style="
+                text-align:center;
+                padding:30px;
+            ">
+                Your cart is empty 🛒
+            </p>
+        `;
 
         return;
     }
 
 
     cartItems.innerHTML =
-        cart.map(item => `
+        cart.map(item => {
 
-        <div class="cart-item">
+            return `
 
-            <div>
+                <div class="cart-item">
 
-                <h4>
-                    ${item.name}
-                </h4>
+                    <div style="
+                        display:flex;
+                        gap:10px;
+                        align-items:center;
+                    ">
 
-                <p>
-                    ₹${item.price.toLocaleString("en-IN")}
-                </p>
+                        <img
+                            src="${item.image}"
+                            alt="${item.name}"
+                            style="
+                                width:60px;
+                                height:60px;
+                                object-fit:cover;
+                                border-radius:6px;
+                            "
+                        >
 
-                <div class="quantity">
+                        <div>
 
-                    <button
-                        onclick="changeQuantity(${item.id}, -1)"
-                    >
-                        −
-                    </button>
+                            <h4>
+                                ${item.name}
+                            </h4>
 
-                    <span>
-                        ${item.quantity}
-                    </span>
+                            <p>
+                                ₹${item.price.toLocaleString("en-IN")}
+                            </p>
 
-                    <button
-                        onclick="changeQuantity(${item.id}, 1)"
-                    >
-                        +
-                    </button>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="quantity">
+
+                            <button
+                                onclick="changeQuantity(${item.id}, -1)"
+                            >
+                                −
+                            </button>
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+                            <button
+                                onclick="changeQuantity(${item.id}, 1)"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            onclick="removeFromCart(${item.id})"
+                            style="
+                                border:none;
+                                background:none;
+                                color:red;
+                                margin-top:5px;
+                                cursor:pointer;
+                            "
+                        >
+                            Remove
+                        </button>
+
+                    </div>
 
                 </div>
 
-            </div>
+            `;
 
-            <button
-                onclick="removeFromCart(${item.id})"
-                style="
-                    border:none;
-                    background:#dc2626;
-                    color:white;
-                    padding:7px;
-                    border-radius:5px;
-                "
-            >
-                Remove
-            </button>
-
-        </div>
-
-    `).join("");
+        }).join("");
 
 }
 
 
-// ======================================================
-// CHANGE QUANTITY
-// ======================================================
-
-window.changeQuantity = function (id, amount) {
-
-    const item =
-        cart.find(product => product.id === id);
-
-    if (!item) return;
-
-
-    item.quantity += amount;
-
-
-    if (item.quantity <= 0) {
-
-        cart =
-            cart.filter(
-                product => product.id !== id
-            );
-
-    }
-
-
-    updateCart();
-
-};
-
-
-// ======================================================
-// REMOVE FROM CART
-// ======================================================
-
-window.removeFromCart = function (id) {
-
-    cart =
-        cart.filter(
-            product => product.id !== id
-        );
-
-    updateCart();
-
-};
-
-
-// ======================================================
-// OPEN CART
-// ======================================================
+/* =========================================================
+   OPEN CART
+========================================================= */
 
 window.openCart = function () {
 
@@ -682,9 +977,9 @@ window.openCart = function () {
 };
 
 
-// ======================================================
-// CLOSE CART
-// ======================================================
+/* =========================================================
+   CLOSE CART
+========================================================= */
 
 window.closeCart = function () {
 
@@ -700,17 +995,20 @@ window.closeCart = function () {
 };
 
 
-// ======================================================
-// CHECKOUT
-// ======================================================
+/* =========================================================
+   CHECKOUT
+========================================================= */
 
 window.openCheckout = function () {
 
     if (cart.length === 0) {
 
-        alert("Pehle cart me product add karo.");
+        alert(
+            "Please add a product to cart first."
+        );
 
         return;
+
     }
 
 
@@ -740,29 +1038,41 @@ window.closeCheckout = function () {
 };
 
 
-// ======================================================
-// PLACE ORDER
-// ======================================================
+/* =========================================================
+   PLACE ORDER
+========================================================= */
 
 window.placeOrder = function () {
 
     const name =
-        document.getElementById("customerName").value.trim();
+        document.getElementById("customerName")?.value.trim();
 
     const phone =
-        document.getElementById("customerPhone").value.trim();
+        document.getElementById("customerPhone")?.value.trim();
 
     const address =
-        document.getElementById("customerAddress").value.trim();
+        document.getElementById("customerAddress")?.value.trim();
 
 
     if (!name || !phone || !address) {
 
         alert(
-            "Please Name, Phone aur Address fill karo."
+            "Please fill all delivery details."
         );
 
         return;
+
+    }
+
+
+    if (cart.length === 0) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
     }
 
 
@@ -775,14 +1085,16 @@ window.placeOrder = function () {
 
 
     alert(
-        "🎉 Order placed successfully!\n\n" +
-        "Customer: " + name + "\n" +
-        "Total: ₹" +
-        total.toLocaleString("en-IN")
+        `Order placed successfully! 🎉\n\n` +
+        `Customer: ${name}\n` +
+        `Total: ₹${total.toLocaleString("en-IN")}\n\n` +
+        `Payment system will be connected separately.`
     );
 
 
     cart = [];
+
+    saveCart();
 
     updateCart();
 
@@ -793,9 +1105,9 @@ window.placeOrder = function () {
 };
 
 
-// ======================================================
-// AUTH MODAL
-// ======================================================
+/* =========================================================
+   LOGIN / SIGNUP MODAL
+========================================================= */
 
 window.openAuth = function () {
 
@@ -825,34 +1137,38 @@ window.closeAuth = function () {
 };
 
 
-// ======================================================
-// SIGN UP
-// ======================================================
+/* =========================================================
+   EMAIL SIGN UP
+========================================================= */
 
 window.signup = async function () {
 
     const email =
-        document.getElementById("signupEmail").value.trim();
+        document.getElementById("signupEmail")?.value.trim();
 
     const password =
-        document.getElementById("signupPassword").value;
+        document.getElementById("signupPassword")?.value;
 
 
     if (!email || !password) {
 
-        alert("Email aur password enter karo.");
-
-        return;
-    }
-
-
-    if (password.length < 6) {
-
         alert(
-            "Password kam se kam 6 characters ka hona chahiye."
+            "Email aur password enter karo."
         );
 
         return;
+
+    }
+
+
+    if (!window.firebaseAuth) {
+
+        alert(
+            "Firebase abhi load nahi hua. Page refresh karke try karo."
+        );
+
+        return;
+
     }
 
 
@@ -872,37 +1188,58 @@ window.signup = async function () {
         );
 
 
-        alert("🎉 Account successfully created!");
+        alert(
+            "Account successfully created! 🎉"
+        );
+
 
         closeAuth();
 
     } catch (error) {
 
-        alert(error.message);
+        console.error(error);
+
+        alert(
+            getFirebaseError(error)
+        );
 
     }
 
 };
 
 
-// ======================================================
-// LOGIN
-// ======================================================
+/* =========================================================
+   EMAIL LOGIN
+========================================================= */
 
 window.login = async function () {
 
     const email =
-        document.getElementById("loginEmail").value.trim();
+        document.getElementById("loginEmail")?.value.trim();
 
     const password =
-        document.getElementById("loginPassword").value;
+        document.getElementById("loginPassword")?.value;
 
 
     if (!email || !password) {
 
-        alert("Email aur password enter karo.");
+        alert(
+            "Email aur password enter karo."
+        );
 
         return;
+
+    }
+
+
+    if (!window.firebaseAuth) {
+
+        alert(
+            "Firebase abhi load nahi hua. Page refresh karke try karo."
+        );
+
+        return;
+
     }
 
 
@@ -922,24 +1259,42 @@ window.login = async function () {
         );
 
 
-        alert("✅ Login successful!");
+        alert(
+            "Login successful! 🎉"
+        );
+
 
         closeAuth();
 
     } catch (error) {
 
-        alert(error.message);
+        console.error(error);
+
+        alert(
+            getFirebaseError(error)
+        );
 
     }
 
 };
 
 
-// ======================================================
-// GOOGLE LOGIN
-// ======================================================
+/* =========================================================
+   GOOGLE LOGIN
+========================================================= */
 
 window.googleLogin = async function () {
+
+    if (!window.firebaseAuth) {
+
+        alert(
+            "Firebase abhi load nahi hua. Page refresh karke try karo."
+        );
+
+        return;
+
+    }
+
 
     try {
 
@@ -961,24 +1316,42 @@ window.googleLogin = async function () {
         );
 
 
-        alert("✅ Google login successful!");
+        alert(
+            "Google login successful! 🎉"
+        );
+
 
         closeAuth();
 
     } catch (error) {
 
-        alert(error.message);
+        console.error(error);
+
+        alert(
+            getFirebaseError(error)
+        );
 
     }
 
 };
 
 
-// ======================================================
-// LOGOUT
-// ======================================================
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 window.logout = async function () {
+
+    if (!window.firebaseAuth) {
+
+        alert(
+            "Firebase abhi load nahi hua."
+        );
+
+        return;
+
+    }
+
 
     try {
 
@@ -994,20 +1367,61 @@ window.logout = async function () {
         );
 
 
-        alert("Logout successful!");
+        alert(
+            "Logout successful! 👋"
+        );
 
     } catch (error) {
 
-        alert(error.message);
+        console.error(error);
+
+        alert(
+            error.message
+        );
 
     }
 
 };
 
 
-// ======================================================
-// CLOSE MODALS WHEN CLICKING OUTSIDE
-// ======================================================
+/* =========================================================
+   FIREBASE ERROR MESSAGE
+========================================================= */
+
+function getFirebaseError(error) {
+
+    const code =
+        error?.code || "";
+
+
+    if (code.includes("auth/email-already-in-use")) {
+        return "Ye email already registered hai.";
+    }
+
+    if (code.includes("auth/invalid-email")) {
+        return "Email address galat hai.";
+    }
+
+    if (code.includes("auth/weak-password")) {
+        return "Password kam se kam 6 characters ka hona chahiye.";
+    }
+
+    if (code.includes("auth/invalid-credential")) {
+        return "Email ya password galat hai.";
+    }
+
+    if (code.includes("auth/popup-closed-by-user")) {
+        return "Google login popup close kar diya gaya.";
+    }
+
+    return error?.message || "Something went wrong.";
+
+}
+
+
+/* =========================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+========================================================= */
 
 document.addEventListener(
     "click",
@@ -1021,6 +1435,7 @@ document.addEventListener(
 
 
         if (
+            authModal &&
             event.target === authModal
         ) {
 
@@ -1030,6 +1445,7 @@ document.addEventListener(
 
 
         if (
+            checkoutModal &&
             event.target === checkoutModal
         ) {
 
@@ -1041,34 +1457,61 @@ document.addEventListener(
 );
 
 
-// ======================================================
-// START STORE
-// ======================================================
+/* =========================================================
+   INITIALIZE STORE
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+function initializeStore() {
 
-        console.log(
-            "My Store starting..."
-        );
+    console.log(
+        "Initializing My Store..."
+    );
 
 
-        // Generate 1000 products
-        generateProducts();
+    generateProducts();
+
+    loadCart();
+
+    updateCart();
+
+    currentCategory = "all";
+
+    currentSearch = "";
+
+    productsToShow = 60;
+
+    displayedProducts =
+        allProducts.slice();
+
+    displayProducts(
+        displayedProducts
+    );
 
 
-        // Show products immediately
-        renderProducts();
+    console.log(
+        "My Store ready!",
+        allProducts.length,
+        "products available."
+    );
+
+}
 
 
-        // Empty cart
-        updateCart();
+/* =========================================================
+   START
+========================================================= */
 
+if (
+    document.readyState === "loading"
+) {
 
-        console.log(
-            "1000 products loaded successfully!"
-        );
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeStore
+    );
 
-    }
-);
+} else {
+
+    initializeStore();
+
+}
