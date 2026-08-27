@@ -13,23 +13,10 @@
 <body>
 
     <!-- HEADER -->
-    <header class="main-header">
+    <header class="header">
 
         <div class="logo">
             🛍️ My Store
-        </div>
-
-        <div class="header-actions">
-
-            <button class="cart-button" onclick="openCart()">
-                🛒 Cart
-                <span id="cartCount">0</span>
-            </button>
-
-            <button class="login-button" onclick="openAuth()">
-                👤 Sign In
-            </button>
-
         </div>
 
         <div class="search-box">
@@ -40,33 +27,40 @@
             >
         </div>
 
+        <button class="cart-button" id="cartButton">
+            🛒 Cart
+            <span id="cartCount">0</span>
+        </button>
+
+        <button class="login-button" id="loginButton">
+            👤 Sign In
+        </button>
+
     </header>
 
 
-    <!-- CATEGORY NAV -->
-    <nav class="category-nav">
+    <!-- NAVIGATION -->
+    <nav class="navbar">
 
-        <button onclick="filterProducts('all')">
-            All
-        </button>
+        <button data-category="all">All</button>
 
-        <button onclick="filterProducts('electronics')">
+        <button data-category="electronics">
             Electronics
         </button>
 
-        <button onclick="filterProducts('clothing')">
+        <button data-category="clothing">
             Clothing
         </button>
 
-        <button onclick="filterProducts('accessories')">
+        <button data-category="accessories">
             Accessories
         </button>
 
-        <button onclick="filterProducts('beauty')">
+        <button data-category="beauty">
             Beauty
         </button>
 
-        <button onclick="filterProducts('home')">
+        <button data-category="home">
             Home
         </button>
 
@@ -78,7 +72,9 @@
 
         <div class="hero-content">
 
-            <span>WELCOME TO MY STORE</span>
+            <p class="hero-small">
+                WELCOME TO MY STORE
+            </p>
 
             <h1>
                 Everything you need.
@@ -86,11 +82,11 @@
                 All in one place.
             </h1>
 
-            <p>
+            <p class="hero-text">
                 Discover thousands of products at amazing prices.
             </p>
 
-            <button onclick="scrollToProducts()">
+            <button id="shopNow">
                 Shop Now 🛍️
             </button>
 
@@ -100,104 +96,76 @@
 
 
     <!-- PRODUCTS -->
-    <section class="products-section" id="products">
+    <section class="products-section" id="productsSection">
 
-        <div class="products-heading">
+        <div class="section-title">
 
-            <div>
-                <span class="section-label">
-                    ONLINE SHOPPING
-                </span>
+            <p>ONLINE SHOPPING</p>
 
-                <h2>
-                    Our Products
-                </h2>
-            </div>
+            <h2>
+                Our Products
+            </h2>
 
-            <p id="productResult">
+        </div>
+
+        <div id="productContainer" class="product-container">
+
+            <p class="loading">
                 Loading products...
             </p>
 
         </div>
 
-
-        <div
-            id="productContainer"
-            class="product-container"
-        ></div>
-
     </section>
 
 
     <!-- CART -->
-    <aside
-        id="cartSidebar"
-        class="cart-sidebar"
-    >
+    <div id="cartSidebar" class="cart-sidebar">
 
         <div class="cart-header">
 
-            <h2>
-                🛒 Your Cart
-            </h2>
+            <h2>🛒 Your Cart</h2>
 
-            <button onclick="closeCart()">
+            <button id="closeCart">
                 ✕
             </button>
 
         </div>
 
-        <div id="cartItems">
-
-            <p class="empty-cart">
-                Your cart is empty.
-            </p>
-
-        </div>
+        <div id="cartItems"></div>
 
         <div class="cart-total">
 
-            <div>
-                <span>Total</span>
-
-                <strong>
-                    ₹<span id="cartTotal">0</span>
-                </strong>
-            </div>
+            <h3>
+                Total:
+                ₹<span id="cartTotal">0</span>
+            </h3>
 
             <button
                 class="checkout-btn"
-                onclick="openCheckout()"
+                id="checkoutButton"
             >
-                Proceed to Checkout
+                Checkout
             </button>
 
         </div>
 
-    </aside>
+    </div>
 
 
     <!-- CHECKOUT MODAL -->
-    <div
-        id="checkoutModal"
-        class="modal"
-    >
+    <div id="checkoutModal" class="modal">
 
         <div class="modal-box">
 
-            <button
-                class="close-modal"
-                onclick="closeCheckout()"
-            >
+            <button class="close-modal" id="closeCheckout">
                 ✕
             </button>
 
-            <h2>
-                Complete Your Order
-            </h2>
+            <h2>Checkout</h2>
 
             <p class="modal-subtitle">
-                Enter your delivery details.
+                Enter your delivery details
             </p>
 
             <input
@@ -219,7 +187,7 @@
 
             <button
                 class="order-btn"
-                onclick="placeOrder()"
+                id="placeOrder"
             >
                 Place Order
             </button>
@@ -230,34 +198,23 @@
 
 
     <!-- LOGIN MODAL -->
-    <div
-        id="authModal"
-        class="modal"
-    >
+    <div id="authModal" class="modal">
 
-        <div class="modal-box auth-box">
+        <div class="modal-box">
 
-            <button
-                class="close-modal"
-                onclick="closeAuth()"
-            >
+            <button class="close-modal" id="closeAuth">
                 ✕
             </button>
 
-            <h2>
-                👤 My Account
-            </h2>
+            <h2>👤 My Account</h2>
 
             <p class="modal-subtitle">
-                Sign in or create a new account.
+                Create an account or login
             </p>
 
 
             <!-- SIGN UP -->
-
-            <h3>
-                Create Account
-            </h3>
+            <h3>Create Account</h3>
 
             <input
                 type="email"
@@ -272,10 +229,10 @@
             >
 
             <button
-                class="order-btn"
-                onclick="signup()"
+                class="auth-btn"
+                id="signupButton"
             >
-                Create Account
+                Sign Up
             </button>
 
 
@@ -285,10 +242,7 @@
 
 
             <!-- LOGIN -->
-
-            <h3>
-                Login
-            </h3>
+            <h3>Login</h3>
 
             <input
                 type="email"
@@ -303,27 +257,31 @@
             >
 
             <button
-                class="login-submit"
-                onclick="login()"
+                class="auth-btn"
+                id="loginButtonModal"
             >
                 Login
             </button>
 
 
+            <!-- GOOGLE -->
             <button
-                class="google-login"
-                onclick="googleLogin()"
+                class="google-btn"
+                id="googleButton"
             >
                 🔵 Continue with Google
             </button>
 
 
+            <!-- LOGOUT -->
             <button
-                class="logout-button"
-                onclick="logout()"
+                class="logout-btn"
+                id="logoutButton"
             >
                 🚪 Logout
             </button>
+
+            <p id="userStatus" class="user-status"></p>
 
         </div>
 
@@ -333,22 +291,73 @@
     <!-- FOOTER -->
     <footer>
 
-        <h3>
+        <div class="footer-logo">
             🛍️ My Store
-        </h3>
+        </div>
 
         <p>
-            Your online shopping destination.
+            Your online shopping destination
         </p>
 
-        <small>
+        <p>
             © 2026 My Store. All Rights Reserved.
-        </small>
+        </p>
 
     </footer>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- FIREBASE -->
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+
+        import {
+            getAuth
+        } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyBJLDffmy4rl_Umb7fdlqMVfCzQnbORdVk",
+
+            authDomain:
+                "mystore-2f465.firebaseapp.com",
+
+            projectId:
+                "mystore-2f465",
+
+            storageBucket:
+                "mystore-2f465.firebasestorage.app",
+
+            messagingSenderId:
+                "255687755598",
+
+            appId:
+                "1:255687755598:web:3ec262c976672082bc801f",
+
+            measurementId:
+                "G-4HZN3YFPLY"
+
+        };
+
+
+        const app =
+            initializeApp(firebaseConfig);
+
+        const auth =
+            getAuth(app);
+
+
+        window.firebaseApp = app;
+        window.firebaseAuth = auth;
+
+    </script>
+
+
+    <!-- MAIN JAVASCRIPT -->
     <script
         type="module"
         src="script.js"
