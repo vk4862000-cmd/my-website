@@ -1,965 +1,1193 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* =========================================
+   MY STORE - COMPLETE JAVASCRIPT
+========================================= */
+
+
+// =========================================
+// PRODUCTS
+// =========================================
+
+const productContainer =
+    document.getElementById("productContainer");
+
+
+// Product image collection
+const productImages = [
+
+    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600",
+    "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600",
+    "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600",
+    "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600",
+    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
+    "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600",
+    "https://images.unsplash.com/photo-1503602642458-232111445657?w=600",
+    "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?w=600",
+    "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",
+    "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600",
+    "https://images.unsplash.com/photo-1585386959984-a41552231693?w=600",
+    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
+    "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600",
+    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",
+    "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600",
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600",
+    "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=600",
+    "https://images.unsplash.com/photo-1600086827875-a63b3587f45c?w=600",
+    "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600",
+    "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600"
+
+];
+
+
+// Product name database
+const productNames = [
+
+    "Apple iPhone",
+    "Samsung Galaxy",
+    "OnePlus Smartphone",
+    "Google Pixel",
+    "Redmi Smartphone",
+    "Realme Smartphone",
+    "Vivo Smartphone",
+    "Oppo Smartphone",
+    "Motorola Phone",
+    "Nothing Phone",
+
+    "HP Laptop",
+    "Dell Laptop",
+    "Lenovo Laptop",
+    "Acer Laptop",
+    "ASUS Laptop",
+    "MacBook Air",
+    "Gaming Laptop",
+    "Business Laptop",
+    "Student Laptop",
+    "Ultrabook",
+
+    "Smart Watch",
+    "Fitness Band",
+    "Wireless Earbuds",
+    "Bluetooth Headphones",
+    "Gaming Headphones",
+    "Bluetooth Speaker",
+    "Power Bank",
+    "Wireless Charger",
+    "USB Cable",
+    "Fast Charger",
+
+    "Men T-Shirt",
+    "Women T-Shirt",
+    "Men Shirt",
+    "Women Shirt",
+    "Jeans",
+    "Denim Jacket",
+    "Hoodie",
+    "Sweatshirt",
+    "Kurta",
+    "Track Pants",
+
+    "Running Shoes",
+    "Sports Shoes",
+    "Casual Shoes",
+    "Sneakers",
+    "Sandals",
+    "Formal Shoes",
+    "Slippers",
+    "Boots",
+
+    "Backpack",
+    "Travel Bag",
+    "Wallet",
+    "Handbag",
+    "Sunglasses",
+    "Belt",
+    "Cap",
+    "Watch",
+    "Jewellery",
+    "Travel Accessories",
+
+    "Face Wash",
+    "Face Cream",
+    "Moisturizer",
+    "Shampoo",
+    "Conditioner",
+    "Perfume",
+    "Lip Balm",
+    "Sunscreen",
+    "Body Lotion",
+    "Beauty Kit",
+
+    "Table Lamp",
+    "Chair",
+    "Study Table",
+    "Bedsheet",
+    "Pillow",
+    "Curtain",
+    "Wall Clock",
+    "Kitchen Set",
+    "Water Bottle",
+    "Storage Box"
+
+];
+
+
+// Categories
+const categories = [
+
+    "electronics",
+    "clothing",
+    "accessories",
+    "beauty",
+    "home"
+
+];
+
+
+// Generate 1000 products
+const products = [];
+
+for (let i = 1; i <= 1000; i++) {
+
+    const name =
+        productNames[(i - 1) % productNames.length];
+
+    const category =
+        categories[(i - 1) % categories.length];
+
+    const image =
+        productImages[(i - 1) % productImages.length];
+
+    const price =
+        299 + ((i * 137) % 70000);
+
+    const discount =
+        5 + (i % 25);
+
+    const oldPrice =
+        Math.round(price / (1 - discount / 100));
+
+    const rating =
+        (3.5 + ((i % 15) / 10)).toFixed(1);
+
+    products.push({
+
+        id: i,
+
+        name:
+            `${name} ${i}`,
+
+        category,
+
+        image,
+
+        price,
+
+        oldPrice,
+
+        discount,
+
+        rating
+
+    });
+
 }
 
-html {
-    scroll-behavior: smooth;
-}
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    color: #172033;
-}
+// =========================================
+// STATE
+// =========================================
 
-button,
-input,
-textarea {
-    font-family: inherit;
-}
+let currentProducts =
+    [...products];
 
-button {
-    cursor: pointer;
-}
+let cart =
+    JSON.parse(
+        localStorage.getItem("myStoreCart")
+    ) || [];
 
 
-/* =========================
-   HEADER
-========================= */
+// =========================================
+// DISPLAY PRODUCTS
+// =========================================
 
-.header {
-    background: #111827;
-    color: white;
+function displayProducts(list) {
 
-    min-height: 165px;
+    productContainer.innerHTML = "";
 
-    display: flex;
-    align-items: center;
+    if (list.length === 0) {
 
-    gap: 15px;
+        productContainer.innerHTML = `
+            <p class="loading">
+                No products found.
+            </p>
+        `;
 
-    padding: 20px 4%;
-
-    position: sticky;
-    top: 0;
-
-    z-index: 1000;
-
-    flex-wrap: wrap;
-}
-
-.logo {
-    font-size: 30px;
-    font-weight: bold;
-
-    width: 100%;
-
-    text-align: center;
-}
-
-.search-box {
-    flex: 1;
-
-    order: 3;
-}
-
-.search-box input {
-    width: 100%;
-
-    padding: 16px 20px;
-
-    border: none;
-
-    border-radius: 9px;
-
-    outline: none;
-
-    font-size: 18px;
-}
-
-.cart-button,
-.login-button {
-    border: none;
-
-    padding: 14px 25px;
-
-    border-radius: 8px;
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: bold;
-}
-
-.cart-button {
-    background: #ff9800;
-}
-
-.cart-button:hover {
-    background: #f57c00;
-}
-
-.login-button {
-    background: #2563eb;
-}
-
-.login-button:hover {
-    background: #1d4ed8;
-}
-
-#cartCount {
-    background: red;
-
-    padding: 4px 8px;
-
-    border-radius: 50%;
-
-    margin-left: 5px;
-}
+        return;
+    }
 
 
-/* =========================
-   NAVBAR
-========================= */
+    // Display first 100 at a time
+    // This keeps website fast.
+    const visibleProducts =
+        list.slice(0, 100);
 
-.navbar {
-    background: white;
 
-    display: flex;
+    visibleProducts.forEach(product => {
 
-    justify-content: center;
+        const card =
+            document.createElement("div");
 
-    align-items: center;
+        card.className =
+            "product-card";
 
-    gap: 35px;
 
-    padding: 18px;
+        card.innerHTML = `
 
-    box-shadow: 0 2px 8px #ddd;
+            <div class="product-image">
 
-    position: sticky;
+                <span class="discount">
+                    ${product.discount}% OFF
+                </span>
 
-    top: 165px;
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                >
 
-    z-index: 900;
+            </div>
 
-    overflow-x: auto;
-}
 
-.navbar button {
-    background: transparent;
+            <div class="product-info">
 
-    border: none;
+                <div class="product-category">
+                    ${product.category}
+                </div>
 
-    font-size: 17px;
+                <h3>
+                    ${product.name}
+                </h3>
 
-    font-weight: bold;
+                <div class="rating">
+                    ⭐ ${product.rating}
+                </div>
 
-    padding: 5px 10px;
+                <div class="price">
 
-    white-space: nowrap;
-}
+                    <strong>
+                        ₹${product.price.toLocaleString("en-IN")}
+                    </strong>
 
-.navbar button:hover {
-    color: #ff6b00;
+                    <del>
+                        ₹${product.oldPrice.toLocaleString("en-IN")}
+                    </del>
+
+                </div>
+
+                <button
+                    class="add-cart-btn"
+                    data-id="${product.id}"
+                >
+                    🛒 Add to Cart
+                </button>
+
+            </div>
+
+        `;
+
+
+        productContainer.appendChild(card);
+
+    });
+
+
+    // Add cart events
+    document
+        .querySelectorAll(".add-cart-btn")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const id =
+                        Number(
+                            this.dataset.id
+                        );
+
+                    addToCart(id);
+
+                }
+            );
+
+        });
+
 }
 
 
-/* =========================
-   HERO
-========================= */
+// =========================================
+// INITIAL PRODUCTS
+// =========================================
 
-.hero {
-    min-height: 400px;
+displayProducts(products);
 
-    display: flex;
 
-    justify-content: center;
+// =========================================
+// SEARCH
+// =========================================
 
-    align-items: center;
+const searchInput =
+    document.getElementById("searchInput");
 
-    text-align: center;
+searchInput.addEventListener(
+    "input",
+    function () {
 
-    color: white;
+        const value =
+            this.value
+                .toLowerCase()
+                .trim();
 
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #7c3aed
+
+        if (!value) {
+
+            currentProducts =
+                [...products];
+
+        } else {
+
+            currentProducts =
+                products.filter(product =>
+
+                    product.name
+                        .toLowerCase()
+                        .includes(value)
+
+                    ||
+
+                    product.category
+                        .toLowerCase()
+                        .includes(value)
+
+                );
+
+        }
+
+
+        displayProducts(currentProducts);
+
+    }
+);
+
+
+// =========================================
+// CATEGORY FILTER
+// =========================================
+
+document
+    .querySelectorAll(".navbar button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const category =
+                    this.dataset.category;
+
+
+                if (category === "all") {
+
+                    currentProducts =
+                        [...products];
+
+                } else {
+
+                    currentProducts =
+                        products.filter(
+                            product =>
+                                product.category === category
+                        );
+
+                }
+
+
+                searchInput.value = "";
+
+                displayProducts(currentProducts);
+
+                document
+                    .getElementById("productsSection")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+            }
         );
 
-    padding: 50px 20px;
-}
+    });
 
-.hero-small {
-    font-size: 20px;
 
-    margin-bottom: 8px;
-}
+// =========================================
+// SHOP NOW
+// =========================================
 
-.hero h1 {
-    font-size: 50px;
+document
+    .getElementById("shopNow")
+    .addEventListener(
+        "click",
+        function () {
 
-    line-height: 1.1;
+            document
+                .getElementById("productsSection")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
 
-    margin-bottom: 22px;
-}
+        }
+    );
 
-.hero-text {
-    font-size: 20px;
 
-    margin-bottom: 35px;
-}
+// =========================================
+// CART
+// =========================================
 
-.hero button {
-    background: white;
+function addToCart(id) {
 
-    color: #2563eb;
+    const product =
+        products.find(
+            item => item.id === id
+        );
 
-    border: none;
+    if (!product) return;
 
-    padding: 17px 45px;
 
-    border-radius: 9px;
+    const existing =
+        cart.find(
+            item => item.id === id
+        );
 
-    font-size: 20px;
 
-    font-weight: bold;
-}
+    if (existing) {
 
-.hero button:hover {
-    transform: translateY(-3px);
+        existing.quantity++;
 
-    box-shadow: 0 8px 20px rgba(0,0,0,.2);
-}
+    } else {
 
+        cart.push({
 
-/* =========================
-   PRODUCTS
-========================= */
+            id: product.id,
 
-.products-section {
-    padding: 55px 4%;
+            name: product.name,
 
-    min-height: 500px;
-}
+            price: product.price,
 
-.section-title {
-    text-align: center;
+            image: product.image,
 
-    margin-bottom: 40px;
-}
+            quantity: 1
 
-.section-title p {
-    font-size: 15px;
+        });
 
-    color: #777;
-
-    margin-bottom: 5px;
-}
-
-.section-title h2 {
-    font-size: 42px;
-
-    color: #111827;
-}
-
-.product-container {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
-    gap: 22px;
-
-    max-width: 1400px;
-
-    margin: auto;
-}
-
-
-/* =========================
-   PRODUCT CARD
-========================= */
-
-.product-card {
-    background: white;
-
-    border-radius: 12px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.12);
-
-    transition: .25s;
-
-    position: relative;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.18);
-}
-
-.product-image {
-    height: 230px;
-
-    background: #f7f7f7;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    position: relative;
-
-    overflow: hidden;
-}
-
-.product-image img {
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: contain;
-
-    padding: 15px;
-
-    transition: .3s;
-}
-
-.product-card:hover
-.product-image img {
-    transform: scale(1.05);
-}
-
-.discount {
-    position: absolute;
-
-    top: 12px;
-
-    left: 12px;
-
-    background: #008c45;
-
-    color: white;
-
-    padding: 6px 10px;
-
-    border-radius: 5px;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    z-index: 2;
-}
-
-.product-info {
-    padding: 18px;
-}
-
-.product-category {
-    color: #777;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-    text-transform: uppercase;
-}
-
-.product-info h3 {
-    font-size: 18px;
-
-    margin: 8px 0;
-
-    min-height: 43px;
-}
-
-.rating {
-    color: #008c45;
-
-    font-weight: bold;
-
-    margin-bottom: 10px;
-}
-
-.price {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    margin-bottom: 15px;
-}
-
-.price strong {
-    color: #e65100;
-
-    font-size: 22px;
-}
-
-.price del {
-    color: #777;
-
-    font-size: 14px;
-}
-
-.add-cart-btn {
-    width: 100%;
-
-    border: none;
-
-    background: #ff9f00;
-
-    color: white;
-
-    padding: 13px;
-
-    border-radius: 6px;
-
-    font-weight: bold;
-
-    font-size: 15px;
-}
-
-.add-cart-btn:hover {
-    background: #fb8c00;
-}
-
-
-/* =========================
-   LOADING
-========================= */
-
-.loading {
-    grid-column: 1 / -1;
-
-    text-align: center;
-
-    font-size: 20px;
-
-    padding: 50px;
-}
-
-
-/* =========================
-   CART
-========================= */
-
-.cart-sidebar {
-    position: fixed;
-
-    top: 0;
-
-    right: -430px;
-
-    width: 420px;
-
-    max-width: 100%;
-
-    height: 100vh;
-
-    background: white;
-
-    z-index: 5000;
-
-    box-shadow:
-        -5px 0 20px rgba(0,0,0,.2);
-
-    transition: .3s;
-
-    padding: 20px;
-
-    overflow-y: auto;
-}
-
-.cart-sidebar.active {
-    right: 0;
-}
-
-.cart-header {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding-bottom: 15px;
-
-    border-bottom: 1px solid #ddd;
-}
-
-.cart-header button {
-    border: none;
-
-    background: #eee;
-
-    border-radius: 50%;
-
-    width: 35px;
-
-    height: 35px;
-
-    font-size: 18px;
-}
-
-.cart-item {
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 15px 0;
-
-    border-bottom: 1px solid #ddd;
-}
-
-.cart-item img {
-    width: 65px;
-
-    height: 65px;
-
-    object-fit: contain;
-
-    background: #f5f5f5;
-
-    border-radius: 6px;
-}
-
-.cart-item-info {
-    flex: 1;
-}
-
-.cart-item-info h4 {
-    font-size: 14px;
-
-    margin-bottom: 5px;
-}
-
-.cart-price {
-    color: #e65100;
-
-    font-weight: bold;
-}
-
-.quantity {
-    display: flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    margin-top: 5px;
-}
-
-.quantity button {
-    border: none;
-
-    background: #ddd;
-
-    width: 26px;
-
-    height: 26px;
-
-    border-radius: 4px;
-
-    font-weight: bold;
-}
-
-.remove-btn {
-    border: none;
-
-    background: #fee2e2;
-
-    color: #dc2626;
-
-    padding: 6px;
-
-    border-radius: 5px;
-}
-
-.cart-total {
-    position: sticky;
-
-    bottom: 0;
-
-    background: white;
-
-    padding-top: 20px;
-
-    margin-top: 15px;
-
-    border-top: 1px solid #ddd;
-}
-
-.checkout-btn {
-    width: 100%;
-
-    padding: 14px;
-
-    margin-top: 15px;
-
-    border: none;
-
-    border-radius: 7px;
-
-    background: #16a34a;
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: bold;
-}
-
-.checkout-btn:hover {
-    background: #15803d;
-}
-
-
-/* =========================
-   MODALS
-========================= */
-
-.modal {
-    display: none;
-
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0,0,0,.65);
-
-    z-index: 6000;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-box {
-    width: 450px;
-
-    max-width: 95%;
-
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    background: white;
-
-    padding: 30px;
-
-    border-radius: 12px;
-
-    position: relative;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.3);
-}
-
-.modal-box h2 {
-    font-size: 28px;
-
-    margin-bottom: 5px;
-}
-
-.modal-box h3 {
-    margin-top: 18px;
-
-    margin-bottom: 10px;
-}
-
-.modal-subtitle {
-    color: #777;
-
-    margin-bottom: 20px;
-}
-
-.close-modal {
-    position: absolute;
-
-    right: 15px;
-
-    top: 12px;
-
-    width: 35px;
-
-    height: 35px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #eee;
-
-    font-size: 18px;
-}
-
-.modal-box input,
-.modal-box textarea {
-    width: 100%;
-
-    padding: 13px;
-
-    margin-bottom: 12px;
-
-    border: 1px solid #ccc;
-
-    border-radius: 6px;
-
-    outline: none;
-
-    font-size: 15px;
-}
-
-.modal-box textarea {
-    height: 100px;
-
-    resize: none;
-}
-
-.modal-box input:focus,
-.modal-box textarea:focus {
-    border-color: #2563eb;
-}
-
-.order-btn,
-.auth-btn {
-    width: 100%;
-
-    padding: 13px;
-
-    border: none;
-
-    border-radius: 6px;
-
-    background: #2563eb;
-
-    color: white;
-
-    font-weight: bold;
-
-    font-size: 15px;
-}
-
-.order-btn {
-    background: #16a34a;
-}
-
-.order-btn:hover {
-    background: #15803d;
-}
-
-.divider {
-    text-align: center;
-
-    color: #888;
-
-    margin: 20px 0;
-}
-
-.google-btn {
-    width: 100%;
-
-    padding: 13px;
-
-    margin-top: 15px;
-
-    border: 1px solid #ccc;
-
-    border-radius: 6px;
-
-    background: white;
-
-    font-weight: bold;
-}
-
-.google-btn:hover {
-    background: #f5f5f5;
-}
-
-.logout-btn {
-    width: 100%;
-
-    padding: 12px;
-
-    margin-top: 10px;
-
-    border: none;
-
-    border-radius: 6px;
-
-    background: #dc2626;
-
-    color: white;
-
-    font-weight: bold;
-}
-
-.user-status {
-    text-align: center;
-
-    color: #008c45;
-
-    margin-top: 15px;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-    background: #111827;
-
-    color: white;
-
-    text-align: center;
-
-    padding: 35px;
-
-    margin-top: 30px;
-}
-
-.footer-logo {
-    font-size: 25px;
-
-    font-weight: bold;
-
-    margin-bottom: 5px;
-}
-
-footer p {
-    margin-top: 5px;
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 1100px) {
-
-    .product-container {
-        grid-template-columns:
-            repeat(3, 1fr);
     }
 
-}
 
+    saveCart();
 
-@media (max-width: 750px) {
+    updateCart();
 
-    .header {
-        min-height: auto;
-
-        padding: 15px;
-    }
-
-    .logo {
-        font-size: 25px;
-    }
-
-    .search-box {
-        width: 100%;
-    }
-
-    .navbar {
-        top: 0;
-
-        gap: 15px;
-
-        justify-content: flex-start;
-    }
-
-    .hero h1 {
-        font-size: 38px;
-    }
-
-    .product-container {
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        gap: 12px;
-    }
+    alert(
+        `${product.name} added to cart!`
+    );
 
 }
 
 
-@media (max-width: 480px) {
+function saveCart() {
 
-    .cart-button,
-    .login-button {
-        padding: 11px 14px;
-
-        font-size: 13px;
-    }
-
-    .hero {
-        min-height: 330px;
-    }
-
-    .hero h1 {
-        font-size: 31px;
-    }
-
-    .hero-text {
-        font-size: 16px;
-    }
-
-    .section-title h2 {
-        font-size: 32px;
-    }
-
-    .product-container {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .product-image {
-        height: 160px;
-    }
-
-    .product-info {
-        padding: 12px;
-    }
-
-    .product-info h3 {
-        font-size: 15px;
-    }
-
-    .price strong {
-        font-size: 17px;
-    }
-
-    .price del {
-        font-size: 11px;
-    }
-
-    .add-cart-btn {
-        padding: 10px 5px;
-
-        font-size: 13px;
-    }
+    localStorage.setItem(
+        "myStoreCart",
+        JSON.stringify(cart)
+    );
 
 }
+
+
+function updateCart() {
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+
+    cartItems.innerHTML = "";
+
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML = `
+            <p style="padding:20px 0">
+                Your cart is empty.
+            </p>
+        `;
+
+        cartCount.textContent = "0";
+
+        cartTotal.textContent = "0";
+
+        return;
+    }
+
+
+    let total = 0;
+
+    let count = 0;
+
+
+    cart.forEach(item => {
+
+        total +=
+            item.price *
+            item.quantity;
+
+        count +=
+            item.quantity;
+
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "cart-item";
+
+
+        div.innerHTML = `
+
+            <img
+                src="${item.image}"
+                alt="${item.name}"
+            >
+
+            <div class="cart-item-info">
+
+                <h4>
+                    ${item.name}
+                </h4>
+
+                <div class="cart-price">
+                    ₹${item.price.toLocaleString("en-IN")}
+                </div>
+
+                <div class="quantity">
+
+                    <button
+                        data-action="minus"
+                        data-id="${item.id}"
+                    >
+                        −
+                    </button>
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+                    <button
+                        data-action="plus"
+                        data-id="${item.id}"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button
+                class="remove-btn"
+                data-action="remove"
+                data-id="${item.id}"
+            >
+                ✕
+            </button>
+
+        `;
+
+
+        cartItems.appendChild(div);
+
+    });
+
+
+    cartCount.textContent =
+        count;
+
+    cartTotal.textContent =
+        total.toLocaleString("en-IN");
+
+
+    // Quantity buttons
+    cartItems
+        .querySelectorAll("button")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const id =
+                        Number(
+                            this.dataset.id
+                        );
+
+                    const action =
+                        this.dataset.action;
+
+
+                    const item =
+                        cart.find(
+                            x => x.id === id
+                        );
+
+
+                    if (!item) return;
+
+
+                    if (action === "plus") {
+
+                        item.quantity++;
+
+                    }
+
+
+                    if (action === "minus") {
+
+                        item.quantity--;
+
+                        if (item.quantity <= 0) {
+
+                            cart =
+                                cart.filter(
+                                    x => x.id !== id
+                                );
+
+                        }
+
+                    }
+
+
+                    if (action === "remove") {
+
+                        cart =
+                            cart.filter(
+                                x => x.id !== id
+                            );
+
+                    }
+
+
+                    saveCart();
+
+                    updateCart();
+
+                }
+            );
+
+        });
+
+}
+
+
+updateCart();
+
+
+// =========================================
+// OPEN CART
+// =========================================
+
+document
+    .getElementById("cartButton")
+    .addEventListener(
+        "click",
+        function () {
+
+            document
+                .getElementById("cartSidebar")
+                .classList.add("active");
+
+        }
+    );
+
+
+// CLOSE CART
+
+document
+    .getElementById("closeCart")
+    .addEventListener(
+        "click",
+        function () {
+
+            document
+                .getElementById("cartSidebar")
+                .classList.remove("active");
+
+        }
+    );
+
+
+// =========================================
+// CHECKOUT
+// =========================================
+
+const checkoutModal =
+    document.getElementById(
+        "checkoutModal"
+    );
+
+
+document
+    .getElementById("checkoutButton")
+    .addEventListener(
+        "click",
+        function () {
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty."
+                );
+
+                return;
+            }
+
+
+            checkoutModal
+                .classList.add("active");
+
+        }
+    );
+
+
+document
+    .getElementById("closeCheckout")
+    .addEventListener(
+        "click",
+        function () {
+
+            checkoutModal
+                .classList.remove("active");
+
+        }
+    );
+
+
+// PLACE ORDER
+
+document
+    .getElementById("placeOrder")
+    .addEventListener(
+        "click",
+        function () {
+
+            const name =
+                document
+                    .getElementById(
+                        "customerName"
+                    )
+                    .value
+                    .trim();
+
+
+            const phone =
+                document
+                    .getElementById(
+                        "customerPhone"
+                    )
+                    .value
+                    .trim();
+
+
+            const address =
+                document
+                    .getElementById(
+                        "customerAddress"
+                    )
+                    .value
+                    .trim();
+
+
+            if (
+                !name ||
+                !phone ||
+                !address
+            ) {
+
+                alert(
+                    "Please fill all details."
+                );
+
+                return;
+            }
+
+
+            alert(
+                "Order placed successfully! 🎉"
+            );
+
+
+            cart = [];
+
+            saveCart();
+
+            updateCart();
+
+
+            checkoutModal
+                .classList.remove("active");
+
+
+            document
+                .getElementById(
+                    "cartSidebar"
+                )
+                .classList.remove("active");
+
+
+            document
+                .getElementById(
+                    "customerName"
+                )
+                .value = "";
+
+
+            document
+                .getElementById(
+                    "customerPhone"
+                )
+                .value = "";
+
+
+            document
+                .getElementById(
+                    "customerAddress"
+                )
+                .value = "";
+
+        }
+    );
+
+
+// =========================================
+// AUTH MODAL
+// =========================================
+
+const authModal =
+    document.getElementById(
+        "authModal"
+    );
+
+
+document
+    .getElementById("loginButton")
+    .addEventListener(
+        "click",
+        function () {
+
+            authModal
+                .classList.add("active");
+
+        }
+    );
+
+
+document
+    .getElementById("closeAuth")
+    .addEventListener(
+        "click",
+        function () {
+
+            authModal
+                .classList.remove("active");
+
+        }
+    );
+
+
+// Click outside modal
+
+document
+    .querySelectorAll(".modal")
+    .forEach(modal => {
+
+        modal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === modal
+                ) {
+
+                    modal.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+
+// =========================================
+// FIREBASE AUTH
+// =========================================
+
+import {
+
+    createUserWithEmailAndPassword,
+
+    signInWithEmailAndPassword,
+
+    GoogleAuthProvider,
+
+    signInWithPopup,
+
+    signOut,
+
+    onAuthStateChanged
+
+} from
+"https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+
+// =========================================
+// SIGN UP
+// =========================================
+
+document
+    .getElementById("signupButton")
+    .addEventListener(
+        "click",
+        async function () {
+
+            const email =
+                document
+                    .getElementById(
+                        "signupEmail"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "signupPassword"
+                    )
+                    .value;
+
+
+            if (!email || !password) {
+
+                alert(
+                    "Email aur password enter karo."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                await createUserWithEmailAndPassword(
+                    window.firebaseAuth,
+                    email,
+                    password
+                );
+
+
+                alert(
+                    "Account successfully created! 🎉"
+                );
+
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+// =========================================
+// LOGIN
+// =========================================
+
+document
+    .getElementById("loginButtonModal")
+    .addEventListener(
+        "click",
+        async function () {
+
+            const email =
+                document
+                    .getElementById(
+                        "loginEmail"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "loginPassword"
+                    )
+                    .value;
+
+
+            if (!email || !password) {
+
+                alert(
+                    "Email aur password enter karo."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                await signInWithEmailAndPassword(
+                    window.firebaseAuth,
+                    email,
+                    password
+                );
+
+
+                alert(
+                    "Login successful! 🎉"
+                );
+
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+// =========================================
+// GOOGLE LOGIN
+// =========================================
+
+document
+    .getElementById("googleButton")
+    .addEventListener(
+        "click",
+        async function () {
+
+            try {
+
+                const provider =
+                    new GoogleAuthProvider();
+
+
+                await signInWithPopup(
+                    window.firebaseAuth,
+                    provider
+                );
+
+
+                alert(
+                    "Google login successful! 🎉"
+                );
+
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+// =========================================
+// LOGOUT
+// =========================================
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        async function () {
+
+            try {
+
+                await signOut(
+                    window.firebaseAuth
+                );
+
+
+                alert(
+                    "Logout successful!"
+                );
+
+
+            } catch (error) {
+
+                alert(
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+
+// =========================================
+// AUTH STATE
+// =========================================
+
+onAuthStateChanged(
+    window.firebaseAuth,
+    function (user) {
+
+        const status =
+            document.getElementById(
+                "userStatus"
+            );
+
+
+        if (user) {
+
+            status.textContent =
+                `Logged in as ${user.email}`;
+
+        } else {
+
+            status.textContent =
+                "You are not logged in.";
+
+        }
+
+    }
+);
